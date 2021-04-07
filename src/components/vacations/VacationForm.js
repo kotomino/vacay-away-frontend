@@ -1,26 +1,26 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux';
-// import { addVacation } from '.../actions/vacations';
+import { connect } from 'react-redux'
+import { addVacation } from '../../actions/vacations';
 
 
 class VacationForm extends Component {
 
   state = {
     location: "",
-    startDate: "",
-    endDate: "",
+    start_date: "",
+    end_date: "",
     budget: 0
   }
 
   handleChange = e => {
     this.setState({
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.type === 'number' ? parseInt(e.target.value) : e.target.value
     })
   }
 
   handleSubmit = e => {
     e.preventDefault();
-
+    
     this.props.addVacation(this.state, this.props.history);
   }
 
@@ -35,11 +35,11 @@ class VacationForm extends Component {
           </div><br/>
           <div>
             <label htmlFor="startDate">Start Date </label>
-            <input type="date" id="startDate" name="startDate" value={this.state.startDate} onChange={this.handleChange} />
+            <input type="date" id="startDate" name="start_date" value={this.state.start_date} onChange={this.handleChange} />
           </div><br/>
           <div>
             <label htmlFor="endDate">End Date </label>
-            <input type="date" id="endDate" name="endDate" value={this.state.endDate} onChange={this.handleChange} />
+            <input type="date" id="endDate" name="end_date" value={this.state.end_date} onChange={this.handleChange} />
           </div><br/>
           <div>
             <label htmlFor="budget">Budget </label>
@@ -52,4 +52,4 @@ class VacationForm extends Component {
   }
 }
 
-export default VacationForm
+export default connect(null, { addVacation })(VacationForm)
