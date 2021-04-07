@@ -21,6 +21,12 @@ const vacationsReducer = (state = initialState, action) => {
         ...state,
         vacations: [...state.vacations, action.vacation]
       }
+    case "DELETE_VACATION":
+      const newVacations = state.vacations.filter(vacation => vacation.id !== action.id)
+      return {
+        ...state,
+        vacations: newVacations
+      }
     default:
       return state;
   }
