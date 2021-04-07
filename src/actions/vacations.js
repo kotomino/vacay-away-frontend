@@ -24,3 +24,13 @@ export const addVacation = (vacation, history) => {
       })
   }
 }
+
+export const deleteVacation = (id) => {
+  return dispatch => {
+    fetch('http://localhost:3001/vacations/' + id, {
+      method: "DELETE",
+    })
+
+    dispatch({ type: "DELETE_VACATION", id})
+  }
+}
