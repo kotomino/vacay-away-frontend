@@ -5,11 +5,26 @@ import ActivityList from '../activities/ActivityList'
 import Grid from '@material-ui/core/Grid';
 import { Button, Container } from '@material-ui/core';
 import VacationSchedule from './VacationSchedule';
+import { getActivities, updateActivityDay } from '../../actions/activities';
 
 class VacationShow extends Component {
+
+  componentDidMount() {
+    this.props.getActivities();
+  }
+
+  handleUpdate = (day, activity) => {
+    const newActivity = {
+      ...activity, 
+      day: day,
+      vacation_id: activity.vacation.id
+    }
+    
+    this.props.updateActivityDay(newActivity, this.props.history); //update backend data
+  }
+
   render() {
     const vacation = this.props.vacations.find(vacation => vacation.id === parseInt(this.props.match.params.vacationId))
-
     if (!vacation) {
           return (
             <h3>Loading...</h3>
@@ -23,17 +38,17 @@ class VacationShow extends Component {
     
     return (
       <Container>
-        <Grid container>
+        <Grid>
         <VacationHeader key={vacation.id} location={ vacation.location } start_date={ vacation.start_date } end_date={ vacation.end_date } budget={vacation.budget} vacation={vacation} />
         </Grid>
         <br />
-        <VacationSchedule numOfDays={numOfDays} location={ vacation.location } start_date={ vacation.start_date } end_date={ vacation.end_date } budget={vacation.budget} vacation={vacation}/>
+        <VacationSchedule numOfDays={numOfDays} location={ vacation.location } start_date={ vacation.start_date } end_date={ vacation.end_date } budget={vacation.budget} vacation={vacation} activities={this.props.activities} handleUpdate={this.handleUpdate} />
+        <ActivityList key={vacation.id} vacation={vacation} numOfDays={numOfDays} handleUpdate={this.handleUpdate} /><br/>
         <Grid item xs={12} align="right">
           <Button align="right" variant="contained" color="secondary" size="large" href={`/vacations/${vacation.id}/activities/new`}>
             Add Activity
           </Button>
         </Grid>
-        <ActivityList key={vacation.id} vacation={vacation} /><br/>
         
       </Container>
     )
@@ -42,9 +57,10 @@ class VacationShow extends Component {
 
 const mapStateToProps = state => {
   return {
-    vacations: state.vacations.vacations
+    vacations: state.vacations.vacations,
+    activities: state.activities.activities
   }
   
 }
 
-export default connect(mapStateToProps)(VacationShow)
+export default connect(mapStateToProps, { getActivities, updateActivityDay })(VacationShow)
