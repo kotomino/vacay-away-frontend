@@ -9,7 +9,6 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 const useStyles = makeStyles({
   card: {
     backgroundColor: fade("#F0FFFF", 0.1),
-    height: 100
   },
 });
 
@@ -35,7 +34,7 @@ function VacationHeader({location, start_date, end_date, budget, vacation, handl
             subheader={
               <Typography variant="h5" color="textSecondary" align="center">
               <strong>Budget: </strong>${ budget } 
-              &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; 
+              &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; 
               { tripDates }
               </Typography>
             }
