@@ -1,4 +1,5 @@
 import React from 'react'
+import DaySelector from './DaySelector';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -11,20 +12,20 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 const useStyles = makeStyles({
   activity: {
     backgroundColor: fade("#F0FFFF", 0.4),
-    height: 265
-  },
+    height: 350
+  }
 });
 
-function Activity({ name, address, cost, notes, mondayOpen, mondayClose, tuesdayOpen, tuesdayClose, wednesdayOpen, wednesdayClose, thursdayOpen, thursdayClose, fridayOpen, fridayClose, saturdayOpen, saturdayClose, sundayOpen, sundayClose }) {
+function Activity({ numOfDays, activity, handleDelete, name, address, cost, mondayOpen, mondayClose, tuesdayOpen, tuesdayClose, wednesdayOpen, wednesdayClose, thursdayOpen, thursdayClose, fridayOpen, fridayClose, saturdayOpen, saturdayClose, sundayOpen, sundayClose, handleUpdate }) {
 
   const classes = useStyles();
 
   return (
     <Grid item xs={12} sm={6} md={4}>
-      <Card container className={classes.activity} elevation={5}>
+      <Card className={classes.activity} elevation={5}>
         <CardHeader 
         action={
-          <IconButton onClick={() => console.log('delete', name)}>
+          <IconButton onClick={() => handleDelete(activity.id)}>
             <DeleteOutlined color="primary"/>
           </IconButton>
         }
@@ -38,7 +39,7 @@ function Activity({ name, address, cost, notes, mondayOpen, mondayClose, tuesday
         }
         />
         <CardContent>
-          
+          <DaySelector numOfDays={numOfDays} activity={activity} handleUpdate={handleUpdate} />
           <Typography variant="body2" color="textSecondary">
             { address } <br/>
             <u>Hours of Operation:</u> <br/>
