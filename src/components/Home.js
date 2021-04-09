@@ -1,22 +1,33 @@
-import React, { Component } from 'react'
+import React from 'react'
 import "../stylesheets/main.css"; 
 import Grid from '@material-ui/core/Grid';
-import { Container } from '@material-ui/core';
+import { Container, fade, makeStyles, Typography } from '@material-ui/core';
 
-class Home extends Component {
-  render() {
-    return (
-     <div className="main" >
-       <Container>
-        <Grid container>
+const useStyles = makeStyles({
+  title: {
+    backgroundColor: fade("#F0FFFF", 0.4),
+    height: 340,
+  },
+});
+
+function Home() {
+
+  const classes = useStyles();
+
+  return (
+    <Container>
+      <Grid container>
+        <Grid item xs={12}>
+        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+          <Typography variant="h2" color="textSecondary" align="right" >
+            Plan Your Next Getaway.
+          </Typography>
         </Grid>
-       </Container>
-      
+      </Grid>
+    </Container>
 
-    </div>
-
-    )
-  }
+  )
 }
+
 
 export default Home
