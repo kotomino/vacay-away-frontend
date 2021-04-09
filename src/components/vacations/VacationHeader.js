@@ -8,7 +8,7 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 
 const useStyles = makeStyles({
   card: {
-    backgroundColor: fade("#F0FFFF", 0.1),
+    backgroundColor: fade("#F0FFFF", 0),
   },
 });
 
@@ -25,22 +25,17 @@ function VacationHeader({location, start_date, end_date, budget, vacation, handl
     const numOfDays = Math.ceil( 1 + (diffTime / (1000 * 60 * 60 * 24))); 
 
     return (
-      <Grid item xs={12} >
-        <Card container className={classes.card} elevation={5}>
-          <CardHeader 
-            title={
-              <Typography variant="h4" color="textSecondary" align="center">❀ <strong>{ location }</strong> ❀〚{ numOfDays } Days〛</Typography>
-            }
-            subheader={
-              <Typography variant="h5" color="textSecondary" align="center">
-              <strong>Budget: </strong>${ budget } 
-              &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; 
-              { tripDates }
-              </Typography>
-            }
-          />
-        </Card>
-      </Grid>
+      <Card container className={classes.card} elevation={0} >
+        <Typography variant="h3" color="textSecondary" align="center"> 
+          <strong>{ location } in {numOfDays} Days</strong>
+        </Typography>
+        <Typography variant="h5" color="textSecondary" align="center">
+          <strong>Budget: </strong>${ budget } 
+          &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; 
+          { tripDates }
+        </Typography>
+
+      </Card>
     )
   }
 
