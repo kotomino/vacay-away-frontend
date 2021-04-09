@@ -11,9 +11,14 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 
 const useStyles = makeStyles({
   activity: {
-    backgroundColor: fade("#F0FFFF", 0.4),
-    height: 350
-  }
+    backgroundColor: fade("#22293D", 0.7),
+    height: 320
+  },
+  flexChild: {
+    width: 60,
+    height: 60,
+    margin: 5
+  },
 });
 
 function Activity({ numOfDays, activity, handleDelete, name, address, cost, mondayOpen, mondayClose, tuesdayOpen, tuesdayClose, wednesdayOpen, wednesdayClose, thursdayOpen, thursdayClose, fridayOpen, fridayClose, saturdayOpen, saturdayClose, sundayOpen, sundayClose, handleUpdate }) {
@@ -30,17 +35,21 @@ function Activity({ numOfDays, activity, handleDelete, name, address, cost, mond
           </IconButton>
         }
         title={
-          <Typography color="textSecondary" variant="h5" align="center" ><strong>{ name }</strong></Typography>
-        }
-        subheader={
-          <Typography variant="h6" color="textSecondary">
-            <strong>$ { cost }</strong>
-          </Typography>
+          <Typography color="textSecondary" variant="h4" align="center" ><strong>{ name }</strong></Typography>
         }
         />
-        <CardContent>
-          <DaySelector numOfDays={numOfDays} activity={activity} handleUpdate={handleUpdate} />
-          <Typography variant="body2" color="textSecondary">
+        <CardContent >
+          <div className="flex-container">
+          <div className={[classes.flexChild, "flex-child"].join(" ")} >
+            <Typography variant="h4" color="textSecondary" >
+              <strong>$ { cost }</strong>
+            </Typography>
+          </div>
+          <div className={[classes.flexChild, "flex-child"].join(" ")}>
+            <DaySelector numOfDays={numOfDays} activity={activity} handleUpdate={handleUpdate} />
+          </div>
+          </div>
+          <Typography variant="body1" color="textSecondary">
             { address } <br/>
             <u>Hours of Operation:</u> <br/>
             Monday: { mondayOpen ? mondayOpen + ' -' : "Closed" } { mondayClose } &emsp;&emsp;&emsp;&emsp;&emsp;
