@@ -1,17 +1,18 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom'
+import Link from '@material-ui/core/Link'
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
-import { IconButton, Typography } from '@material-ui/core';
+import { CardActionArea, IconButton, Typography } from '@material-ui/core';
 import { DeleteOutlined } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 
 const useStyles = makeStyles({
   card: {
-    backgroundColor: fade("#F0FFFF", 0.4),
+    backgroundColor: fade("#22293D", 0.6),
   },
 });
 
@@ -29,27 +30,28 @@ function Vacation({location, start_date, end_date, budget, vacation, handleDelet
 
     return (
       <Grid item xs={12} md={4}>
-        <Card container className={classes.card} elevation={5}>
-          <CardHeader 
-            action={
-              <IconButton onClick={() => handleDelete(vacation.id)}>
-                <DeleteOutlined />
-              </IconButton>
-            }
-            title={
-            <Link to={`/vacations/${vacation.id}`}><center><strong>{ location }</strong></center></Link>
-            }
-            subheader={
-              <Typography>{ numOfDays } Days</Typography>
-            }
-          />
-          <CardContent>
-            <Typography variant="body2" color="textSecondary">
-              $ { budget } <br/> <br/>
-              { tripDates }
-            </Typography>
-          </CardContent>
-        </Card>
+        <Link underline='none' component={ RouterLink } to={`/vacations/${vacation.id}`}>
+          <CardActionArea>
+          <Card container className={classes.card} elevation={5}>
+            <CardHeader 
+              action={
+                <IconButton onClick={() => handleDelete(vacation.id)}>
+                  <DeleteOutlined color="primary" />
+                </IconButton>
+              }
+              title={
+                <Typography variant="h4" color="primary" align="center">{ location }</Typography>
+              }
+            />
+            <CardContent>
+              <Typography color="primary" align="center">
+                { numOfDays } Days &emsp;&emsp; { tripDates } &emsp;&emsp; Budget: $ { budget }
+              </Typography>
+            
+            </CardContent>
+          </Card>
+          </CardActionArea>
+        </Link>
       </Grid>
     )
   }
