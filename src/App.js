@@ -19,19 +19,21 @@ const theme = createMuiTheme({
     },
     secondary: {
       main: '#f50057'
-  },
-  text: {
-    secondary: '#1E4744'
-  },
+    },
+    text: {
+      primary: "#22293D",
+      secondary: '#e6e6e6'
+    }
+  }, 
   typography: {
-    fontFamily: 'Poppins',
-    fontWeightLight: 300,
-    fontWeightRegular: 400,
-    fontWeightMedium: 500,
-    fontWeightBold: 600,
-
+    fontFamily: 'Caveat',
+    fontWeightLight: 400,
+    fontWeightRegular: 700,
+    fontWeightMedium: 600,
+    fontWeightBold: 700,
+   
   }
-}})
+})
 
 class App extends Component {
 
