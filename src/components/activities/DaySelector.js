@@ -9,14 +9,14 @@ const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
-  }
+  },
 }));
 
-function DaySelector({ numOfDays, handleUpdate, activity }) {
+function DaySelector({ numOfDays, handleUpdate, activity, day }) {
 
   const classes = useStyles();
 
-  const [day, setDay] = React.useState('');
+  // const [day, setDay] = React.useState('');
 
   const daysArray = []
 
@@ -28,28 +28,13 @@ function DaySelector({ numOfDays, handleUpdate, activity }) {
 
   const handleChange = e => {
    
-    // setDay(e.target.value);
     handleUpdate(e.target.value, activity);
   }
-
-  // <FormControl className={classes.formControl}>
-  //       <InputLabel id="demo-simple-select-label">Age</InputLabel>
-  //       <Select
-  //         labelId="demo-simple-select-label"
-  //         id="demo-simple-select"
-  //         value={age}
-  //         onChange={handleChange}
-  //       >
-  //         <MenuItem value={10}>Ten</MenuItem>
-  //         <MenuItem value={20}>Twenty</MenuItem>
-  //         <MenuItem value={30}>Thirty</MenuItem>
-  //       </Select>
-  //     </FormControl>
 
   return (
     <div>
       <FormControl variant="outlined" className={classes.formControl} >
-            <InputLabel id="demo-simple-select-label">Select Day</InputLabel>
+            <InputLabel id="demo-simple-select-label">Set Day</InputLabel>
             <Select
               labelId="demo-simple-select-label"
               id="demo-simple-select"
