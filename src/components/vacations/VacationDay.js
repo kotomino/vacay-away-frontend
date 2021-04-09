@@ -9,7 +9,7 @@ import ActivityWithDay from '../activities/ActivityWithDay';
 
 const useStyles = makeStyles({
   dayPlanner: {
-    backgroundColor: fade("#F0FFFF", 0.2),
+    backgroundColor: fade("#F0FFFF", 0.4),
     height: 340,
   },
 });
@@ -20,16 +20,18 @@ function VacationDay({ day, activities, vacation, numOfDays, handleUpdate }) {
 
   console.log(day, activitiesForDay)
 
-  const displayActivities = activitiesForDay.map(activity => <ActivityWithDay numOfDays={numOfDays} activity={activity} vacation={vacation} handleUpdate={handleUpdate} />);
+  const displayActivities = activitiesForDay.map(activity => <ActivityWithDay day={ day } numOfDays={numOfDays} activity={activity} vacation={vacation} handleUpdate={handleUpdate} />);
 
   const classes = useStyles();
   
     return (
-      <Grid item xs={4} sm={4} >
-        <Typography variant="h5" color="textSecondary"><center><strong>{ day }</strong></center></Typography>
+      <Grid item xs={4} sm={4} spacing={1}>
+        <Typography variant="h5" color="textPrimary"><center><strong>{ day }</strong></center></Typography>
         <Card container className={[classes.dayPlanner, "slide"].join(" ")} elevation={5}>
-          <CardContent>
+          <CardContent >
+            <Grid container spacing={1}>
             { displayActivities }
+            </Grid>
           </CardContent>
         </Card>
       </Grid>
