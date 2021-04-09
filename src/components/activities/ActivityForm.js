@@ -477,18 +477,6 @@ class ActivityForm extends Component {
           </select>
           </div>
           <div>
-            <label htmlFor="cars"> Sunday Close:</label>
-            <select name="sunday_close" id="sunday_close" value={this.state.sunday_close} onChange={this.handleChange}>
-            <option value="0:00">0:00</option>
-            <option value="1:00">1:00</option>
-            <option value="2:00">2:00</option>
-            <option value="3:00">3:00</option>
-            <option value="4:00">4:00</option>
-            <option value="5:00">5:00</option>
-            <option value="6:00">6:00</option>
-          </select>
-          </div>
-          <div>
             <label htmlFor="day">Schedule the activity for: </label>
             <select id="day" name="day" value={this.state.day} onChange={this.handleChange}>
               <option value="Undecided">Undecided</option>
