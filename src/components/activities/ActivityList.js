@@ -4,6 +4,7 @@ import Activity from './Activity';
 import { deleteActivity } from '../../actions/activities';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import { Button } from '@material-ui/core';
 
 
 class ActivityList extends Component {
@@ -27,11 +28,17 @@ class ActivityList extends Component {
     return (
       <div>
           <Grid item xs={12}>
-            <Typography variant="h5" color="primary" align="center"><strong>Activities Without Day:</strong></Typography>
+            <Typography variant="h5" color="textPrimary"><strong>Activities Without Day Selected</strong></Typography>
           </Grid>
           <Grid container spacing={2}>
             { activities } 
+            <Grid item xs={2} align="right">
+              <Button align="right" variant="contained" color="secondary" size="large" href={`/vacations/${this.props.vacation.id}/activities/new`}>
+              Add Activity
+              </Button>
+            </Grid>
           </Grid>
+
       </div>
     )
   }
