@@ -38,18 +38,17 @@ class VacationShow extends Component {
     
     return (
       <Container>
-        <Grid>
-        <VacationHeader key={vacation.id} location={ vacation.location } start_date={ vacation.start_date } end_date={ vacation.end_date } budget={vacation.budget} vacation={vacation} />
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <VacationHeader key={vacation.id} location={ vacation.location } start_date={ vacation.start_date } end_date={ vacation.end_date } budget={vacation.budget} vacation={vacation} />
+          </Grid>
+          <Grid item xs={12}>
+            <VacationSchedule numOfDays={numOfDays} location={ vacation.location } start_date={ vacation.start_date } end_date={ vacation.end_date } budget={vacation.budget} vacation={vacation} activities={this.props.activities} handleUpdate={this.handleUpdate} />
+          </Grid>
+          <Grid item xs={12}>
+            <ActivityList key={vacation.id} vacation={vacation} numOfDays={numOfDays} vacation={vacation} handleUpdate={this.handleUpdate} /><br/>
+          </Grid>
         </Grid>
-        <br />
-        <VacationSchedule numOfDays={numOfDays} location={ vacation.location } start_date={ vacation.start_date } end_date={ vacation.end_date } budget={vacation.budget} vacation={vacation} activities={this.props.activities} handleUpdate={this.handleUpdate} />
-        <ActivityList key={vacation.id} vacation={vacation} numOfDays={numOfDays} handleUpdate={this.handleUpdate} /><br/>
-        <Grid item xs={12} align="right">
-          <Button align="right" variant="contained" color="secondary" size="large" href={`/vacations/${vacation.id}/activities/new`}>
-            Add Activity
-          </Button>
-        </Grid>
-        
       </Container>
     )
   }
