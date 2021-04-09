@@ -21,8 +21,8 @@ class VacationList extends Component {
       <Container>
         <Grid container spacing={3}>
           <Grid item xs={12} >
-            <Typography variant="h4" gutterBottom color="primary" align="center">
-              <strong>Planned Trips:</strong>
+            <Typography variant="h3" gutterBottom color="primary" align="center">
+              <strong>Upcoming Trips</strong>
             </Typography>
           </Grid>
           <Grid item xs={12} align="right">
