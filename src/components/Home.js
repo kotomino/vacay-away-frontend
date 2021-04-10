@@ -1,18 +1,10 @@
 import React from 'react'
 import "../stylesheets/main.css"; 
 import Grid from '@material-ui/core/Grid';
-import { Container, fade, makeStyles, Typography } from '@material-ui/core';
+import { Container, Typography } from '@material-ui/core';
 
-const useStyles = makeStyles({
-  title: {
-    backgroundColor: fade("#F0FFFF", 0.4),
-    height: 340,
-  },
-});
 
 function Home() {
-
-  const classes = useStyles();
 
   return (
     <Container>
