@@ -30,7 +30,6 @@ function Vacation({location, start_date, end_date, budget, vacation, handleDelet
 
     return (
       <Grid item xs={12} md={4}>
-        
         <Link underline='none' component={ RouterLink } to={`/vacations/${vacation.id}`}>
               <CardActionArea>
           <Card container className={classes.card} elevation={5}>
