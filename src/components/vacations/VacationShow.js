@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import VacationHeader from './VacationHeader'
 import ActivityList from '../activities/ActivityList'
 import Grid from '@material-ui/core/Grid';
-import { Button, Container } from '@material-ui/core';
+import { Container } from '@material-ui/core';
 import VacationSchedule from './VacationSchedule';
 import { getActivities, updateActivityDay } from '../../actions/activities';
 
@@ -46,7 +46,7 @@ class VacationShow extends Component {
             <VacationSchedule numOfDays={numOfDays} location={ vacation.location } start_date={ vacation.start_date } end_date={ vacation.end_date } budget={vacation.budget} vacation={vacation} activities={this.props.activities} handleUpdate={this.handleUpdate} />
           </Grid>
           <Grid item xs={12}>
-            <ActivityList key={vacation.id} vacation={vacation} numOfDays={numOfDays} vacation={vacation} handleUpdate={this.handleUpdate} /><br/>
+            <ActivityList key={vacation.id} numOfDays={numOfDays} vacation={vacation} handleUpdate={this.handleUpdate} /><br/>
           </Grid>
         </Grid>
       </Container>
