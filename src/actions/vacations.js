@@ -8,7 +8,9 @@ export const getVacations = () => {
 }
 
 export const addVacation = (vacation, history) => {
+  console.log('addVacation action', vacation, history)
   return dispatch => {
+    console.log("mapDispatchToProps");
     fetch('http://localhost:3001/vacations', {
       method: "POST",
       headers: {
@@ -26,11 +28,11 @@ export const addVacation = (vacation, history) => {
 }
 
 export const deleteVacation = (id) => {
+  console.log("delete vacation action", id)
   return dispatch => {
     fetch('http://localhost:3001/vacations/' + id, {
       method: "DELETE",
     })
-
     dispatch({ type: "DELETE_VACATION", id})
   }
 }

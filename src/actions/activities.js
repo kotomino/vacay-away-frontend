@@ -27,6 +27,7 @@ export const addActivity = (activity, history) => {
 }
 
 export const deleteActivity = (id) => {
+  console.log('delete activity action', id)
   return dispatch => {
     fetch('http://localhost:3001/activities/' + id, {
       method: "DELETE",
@@ -34,6 +35,18 @@ export const deleteActivity = (id) => {
     dispatch({ type: "DELETE_ACTIVITY", id})
   }
 }
+
+/* Need to delete associated activities first when deleting a vacation */
+
+// export const deleteActivities = (id) => {
+//   console.log("delete activities action", id)
+//   return dispatch => {
+//     fetch('http://localhost:3001/activities/' + id, {
+//       method: "DELETE",
+//     })
+//     dispatch({ type: "DELETE_ACTIVITIES"}, id)
+//   }
+// }
 
 export const updateActivityDay = (activity, history) => {
   return dispatch => {
