@@ -24,10 +24,10 @@ const activitiesReducer = (state = initialState, action) => {
     }
     case "UPDATE_ACTIVITY_DAY":
       console.log('UPDATE_ACTVIVITY reducer:', action)
-   
+      const updatedActivities = state.activities.filter(activity => activity.id !== action.activity.id)
       return {
         ...state,
-        activities: [...state.activities, action.activity]
+        activities: [...updatedActivities, action.activity]
       }
     case "DELETE_ACTIVITY":
       console.log('DELETE_ACTVIVITY reducer:', action)
@@ -36,7 +36,13 @@ const activitiesReducer = (state = initialState, action) => {
         ...state,
         activities: newActivities
       }
-
+    case "DELETE_ACTIVITIES":
+      console.log('DELETE_ACTIVITIES reducer', action)
+      const remainingActivities = state.activities.filter(activity => activity.vacation.id !== action.id) // activity's vacation id (foregin key) does not equal the deleted vacation's id.
+      return {
+        ...state,
+        activities: remainingActivities
+      }
     default:
       return state;
   }
