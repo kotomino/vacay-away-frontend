@@ -1,55 +1,130 @@
-import React, { Component } from 'react'
+import { Button, Card, Container, fade, Grid, makeStyles, TextField, Typography } from '@material-ui/core';
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { addVacation } from '../../actions/vacations';
 
+const useStyles = makeStyles((theme) => ({
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 200,
+  },
+  form: {
+    backgroundColor: fade("#F0FFFF", 0.4)
+  }
+}));
 
-class VacationForm extends Component {
+function VacationForm({ history, addVacation }) {
+  const classes = useStyles();
 
-  state = {
-    location: "",
-    start_date: "",
-    end_date: "",
-    budget: 0
+  const [location, setLocation] = useState('')
+  const [start_date, setStartDate] = useState("2021-04-09");
+  const [end_date, setEndDate] = useState("2021-04-09");
+  const [budget, setBudget] = useState(0)
+
+
+  const handleChange = e => {
+    console.log(e.target.name, e.target.value)
+    switch(e.target.name) {
+      case "location":
+        setLocation(e.target.value)
+        break;
+      case "start_date":
+        setStartDate(e.target.value)
+        break;
+      case "end_date":
+        setEndDate(e.target.value)
+        break;
+      case "budget":
+        setBudget(parseInt(e.target.value))
+        break;
+      default:
+        return {
+          location,
+          start_date,
+          end_date,
+          budget,
+        }
+    }
   }
 
-  handleChange = e => {
-    this.setState({
-      [e.target.name]: e.target.type === 'number' ? parseInt(e.target.value) : e.target.value
-    })
-  }
-
-  handleSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
-    
-    this.props.addVacation(this.state, this.props.history);
+    console.log('event', e)
+
+    const state = {
+      location,
+      start_date,
+      end_date,
+      budget,
+    }
+    console.log('state', state)
+    addVacation(state, history);
   }
 
-  render() {
-    return (
-      <div>
-        <h3>Plan Your Next Vacation</h3>
-        <form onSubmit={this.handleSubmit}>
-          <div>
-            <label htmlFor="location">Location </label>
-            <input type="text" id="title" name="location" value={this.state.location} onChange={this.handleChange} />
-          </div><br/>
-          <div>
-            <label htmlFor="startDate">Start Date </label>
-            <input type="date" id="startDate" name="start_date" value={this.state.start_date} onChange={this.handleChange} />
-          </div><br/>
-          <div>
-            <label htmlFor="endDate">End Date </label>
-            <input type="date" id="endDate" name="end_date" value={this.state.end_date} onChange={this.handleChange} />
-          </div><br/>
-          <div>
-            <label htmlFor="budget">Budget </label>
-            <input type="number" id="budget" name="budget" value={this.state.budget} onChange={this.handleChange} />
-          </div><br/>
-          <input type="submit" value="Create Trip" />
-        </form>
-      </div>
-    )
-  }
+  return (
+    <Container>
+      <Grid container >
+        <Grid item xs={12}>
+          <Typography variant="h3" align="center" color="textSecondary" >Plan Your Next Vacation</Typography>
+        </Grid>
+        
+        <Grid item xs={4} sm={4}>
+          <Card container className={classes.form} elevation={5} md={6} >
+            <Container>
+             <Grid container >
+            <form className={classes.container} onSubmit={handleSubmit} >
+              <Grid item xs={12} align="center">
+                <TextField label="Location" id="location" name="location" value={location} onInput={handleChange} />
+              </Grid>
+              <Grid item xs={12} align="center">
+                <TextField
+                  id="start_date"
+                  label="Start Date"
+                  type="date"
+                  name="start_date"
+                  defaultValue={start_date}
+                  className={classes.textField}
+                  onChange={handleChange}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} align="center">
+                <TextField
+                  id="end_date"
+                  label="End Date"
+                  type="date"
+                  name="end_date"
+                  defaultValue={end_date}
+                  className={classes.textField}
+                  onChange={handleChange}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              </Grid>
+              <Grid item xs={12} align="center">
+                <TextField type="number" id="budget" label="Budget" name="budget" value={budget} onInput={handleChange} />
+              </Grid>
+              <Grid item xs={12} align="center">
+                <Button variant="contained" color="secondary" type="submit" >Create Trip</Button>
+              </Grid>
+            </form>
+            </Grid>
+            </Container>
+          </Card>
+          </Grid>
+          
+      </Grid>
+    </Container>
+  )
 }
+
 
 export default connect(null, { addVacation })(VacationForm)
