@@ -30,8 +30,9 @@ function Vacation({location, start_date, end_date, budget, vacation, handleDelet
 
     return (
       <Grid item xs={12} md={4}>
+        
         <Link underline='none' component={ RouterLink } to={`/vacations/${vacation.id}`}>
-          <CardActionArea>
+              <CardActionArea>
           <Card container className={classes.card} elevation={5}>
             <CardHeader 
               action={
@@ -43,15 +44,16 @@ function Vacation({location, start_date, end_date, budget, vacation, handleDelet
                 <Typography variant="h4" color="primary" align="center">{ location }</Typography>
               }
             />
-            <CardContent>
-              <Typography color="primary" align="center">
-                { numOfDays } Days &emsp;&emsp; { tripDates } &emsp;&emsp; Budget: $ { budget }
-              </Typography>
+                <CardContent>
+                  <Typography color="primary" align="center">
+                    { numOfDays } Days &emsp;&emsp; { tripDates }
+                  </Typography>
             
-            </CardContent>
+                </CardContent>      
           </Card>
           </CardActionArea>
-        </Link>
+            </Link>
+        {/* </Link> */}
       </Grid>
     )
   }
