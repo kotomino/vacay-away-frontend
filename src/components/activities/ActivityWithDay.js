@@ -2,8 +2,7 @@ import React from 'react'
 import Card from '@material-ui/core/Card';
 import { makeStyles } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
-import { Container, Grid, Typography } from '@material-ui/core';
-import CardContent from '@material-ui/core/CardContent';
+import { Grid, Typography } from '@material-ui/core';
 import DaySelector from './DaySelector';
 
 const useStyles = makeStyles({
