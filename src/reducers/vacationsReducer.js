@@ -17,15 +17,18 @@ const vacationsReducer = (state = initialState, action) => {
         vacations: action.vacations
       }
     case "ADD_VACATION":
+      console.log('add_vacation reducer', action)
       return {
         ...state,
         vacations: [...state.vacations, action.vacation]
       }
     case "DELETE_VACATION":
+      console.log('delete_vacation reducer', action)
       const newVacations = state.vacations.filter(vacation => vacation.id !== action.id)
+      console.log('newVacations variable', newVacations)
       return {
         ...state,
-        vacations: newVacations
+        vacations: newVacations,
       }
     default:
       return state;
