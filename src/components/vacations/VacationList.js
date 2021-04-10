@@ -4,13 +4,31 @@ import Vacation from './Vacation';
 import Grid from '@material-ui/core/Grid';
 import { Button, Container } from '@material-ui/core';
 import { deleteVacation } from '../../actions/vacations';
+import { deleteActivity } from '../../actions/activities';
 import Typography from '@material-ui/core/Typography';
 
 
 class VacationList extends Component {
 
-  handleDelete = id => {
-    this.props.deleteVacation(id);
+  handleDelete = vacationId => {
+    console.log(vacationId)
+    console.log('this.props.activities', this.props.activities)
+    /* Find array of activity ids to delete that have the vacation id as foreign key */ 
+    const activitiesId = this.props.activities.filter(activity => activity.vacation.id === vacationId).map(activity => activity.id);
+    console.log('activitiesId', activitiesId)
+
+    activitiesId.forEach(activityId => this.deleteActivities(activityId)); //delete associated activities first
+
+    this.deleteVacation(vacationId); //then delete the vacation selected 
+    }
+  
+
+  deleteActivities = (activityId) => {
+    this.props.deleteActivity(activityId)
+  }
+
+  deleteVacation = (vacationId) => {
+    this.props.deleteVacation(vacationId);
   }
 
   render() {
@@ -22,7 +40,7 @@ class VacationList extends Component {
         <Grid container spacing={3}>
           <Grid item xs={12} >
             <Typography variant="h3" gutterBottom color="primary" align="center">
-              <strong>Upcoming Trips</strong>
+              <strong>Upcoming Trips </strong>
             </Typography>
           </Grid>
           <Grid item xs={12} align="right">
@@ -39,8 +57,9 @@ class VacationList extends Component {
 
 const mapStateToProps = state => {
   return {
-    vacations: state.vacations.vacations
+    vacations: state.vacations.vacations,
+    activities: state.activities.activities
   }
 }
 
-export default connect(mapStateToProps, { deleteVacation })(VacationList)
+export default connect(mapStateToProps, { deleteVacation, deleteActivity })(VacationList)
