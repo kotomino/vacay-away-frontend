@@ -28,17 +28,17 @@ class ActivityList extends Component {
     return (
       <div>
           <Grid item xs={12}>
-            <Typography variant="h5" color="textPrimary"><strong>Activities Without Day Selected</strong></Typography>
+            <Typography variant="h5" color="textPrimary"><strong>Activities With Undecided Days </strong></Typography>
           </Grid>
-          <Grid container spacing={2}>
+          <Grid container container wrap='nowrap' spacing={2} className="activitySlider">
             { activities } 
-            <Grid item xs={2} align="right">
-              <Button align="right" variant="contained" color="secondary" size="large" href={`/vacations/${this.props.vacation.id}/activities/new`}>
-              Add Activity
-              </Button>
-            </Grid>
+            
           </Grid>
-
+          <Grid item xs={2} align="right">
+            <Button align="right" variant="contained" color="secondary" size="large" href={`/vacations/${this.props.vacation.id}/activities/new`}>
+            Add Activity
+            </Button>
+          </Grid>
       </div>
     )
   }
