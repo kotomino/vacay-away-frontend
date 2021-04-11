@@ -12,7 +12,8 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 const useStyles = makeStyles({
   activity: {
     backgroundColor: fade("#22293D", 0.7),
-    height: 320
+    height: 320,
+    width: 360
   },
   flexChild: {
     width: 60,
@@ -26,7 +27,7 @@ function Activity({ numOfDays, activity, handleDelete, name, address, cost, mond
   const classes = useStyles();
 
   return (
-    <Grid item xs={12} sm={6} md={4}>
+    <Grid item >
       <Card className={classes.activity} elevation={5}>
         <CardHeader 
         action={
@@ -52,13 +53,13 @@ function Activity({ numOfDays, activity, handleDelete, name, address, cost, mond
           <Typography variant="body1" color="textSecondary">
             { address } <br/>
             <u>Hours of Operation:</u> <br/>
-            Monday: { mondayOpen ? mondayOpen + ' -' : "Closed" } { mondayClose } &emsp;&emsp;&emsp;&emsp;&emsp;
-            Friday: { fridayOpen ? fridayOpen + ' -' : "Closed" } { fridayClose } <br/>
-            Tuesday: { tuesdayOpen ? tuesdayOpen + ' -' : "Closed" } { tuesdayClose } &emsp;&emsp;&emsp;&emsp;&emsp;
-            Saturday: { saturdayOpen ? saturdayOpen + ' -' : "Closed" } { saturdayClose }<br/>
-            Wednesday: { wednesdayOpen ? wednesdayOpen + ' -' : "Closed" } { wednesdayClose } &emsp;&emsp;&emsp;&emsp;
-            Sunday: { sundayOpen ? sundayOpen + ' -' : "Closed" } { sundayClose } <br/>
-            Thursday: { thursdayOpen ? thursdayOpen + ' -' : "Closed" } { thursdayClose } <br/>
+            Monday: { ( mondayOpen === "Closed" || mondayOpen === null ) ? "Closed" : `${ mondayOpen } - ${ mondayClose }` } &emsp;&emsp;&emsp;&emsp;&emsp;
+            Friday: { ( fridayOpen === "Closed" || fridayOpen === null ) ? "Closed" : `${ fridayOpen } - ${ fridayClose }` } <br/>
+            Tuesday: { ( tuesdayOpen === "Closed" || tuesdayOpen === null ) ? "Closed" : `${ tuesdayOpen } - ${ tuesdayClose }` } &emsp;&emsp;&emsp;&emsp;&emsp;
+            Saturday: { ( saturdayOpen === "Closed" || saturdayOpen === null ) ? "Closed" : `${ saturdayOpen } - ${ saturdayClose }` }<br/>
+            Wednesday: { ( wednesdayOpen === "Closed" || wednesdayOpen === null ) ? "Closed" : `${ wednesdayOpen } - ${ wednesdayClose }` } &emsp;&emsp;&emsp;&emsp;
+            Sunday: { ( sundayOpen === "Closed" || sundayOpen === null ) ? "Closed" : `${ sundayOpen } - ${ sundayClose }` } <br/>
+            Thursday: { ( thursdayOpen === "Closed" || thursdayOpen === null ) ? "Closed" : `${ thursdayOpen } - ${ thursdayClose }` } <br/>
             <br/>
              <br/>
             <br/>
