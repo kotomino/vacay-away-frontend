@@ -17,7 +17,7 @@ const useStyles = makeStyles({
 });
 
 
-function Vacation({location, start_date, end_date, budget, vacation, handleDelete}) {
+function Vacation({location, start_date, end_date, budget, vacation, handleDelete, history}) {
 
     const classes = useStyles();
 
@@ -28,14 +28,18 @@ function Vacation({location, start_date, end_date, budget, vacation, handleDelet
     const diffTime = Math.abs(date2 - date1);
     const numOfDays = Math.ceil( 1 + (diffTime / (1000 * 60 * 60 * 24))); 
 
+    const showPageRoute = () => {
+      let path = `/vacations/${vacation.id}`
+      history.push(path)
+    }
+
     return (
       <Grid item xs={12} md={4}>
-        <Link underline='none' component={ RouterLink } to={`/vacations/${vacation.id}`}>
-              <CardActionArea>
+        <CardActionArea onClick={showPageRoute} >
           <Card container className={classes.card} elevation={5}>
             <CardHeader 
               action={
-                <IconButton onClick={() => handleDelete(vacation.id)}>
+                <IconButton onClick={(e) => handleDelete(vacation.id, e)}>
                   <DeleteOutlined color="primary" />
                 </IconButton>
               }
@@ -51,7 +55,7 @@ function Vacation({location, start_date, end_date, budget, vacation, handleDelet
                 </CardContent>      
           </Card>
           </CardActionArea>
-            </Link>
+           
         {/* </Link> */}
       </Grid>
     )
