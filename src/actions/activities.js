@@ -35,19 +35,6 @@ export const deleteActivity = (id) => {
     dispatch({ type: "DELETE_ACTIVITY", id})
   }
 }
-
-/* Need to delete associated activities first when deleting a vacation */
-
-// export const deleteActivities = (id) => {
-//   console.log("delete activities action", id)
-//   return dispatch => {
-//     fetch('http://localhost:3001/activities/' + id, {
-//       method: "DELETE",
-//     })
-//     dispatch({ type: "DELETE_ACTIVITIES"}, id)
-//   }
-// }
-
 export const updateActivityDay = (activity, history) => {
   return dispatch => {
     fetch('http://localhost:3001/activities/' + activity.id, {
@@ -59,7 +46,7 @@ export const updateActivityDay = (activity, history) => {
       body: JSON.stringify({ activity })
     })
     dispatch({ type: "UPDATE_ACTIVITY_DAY", activity})
-    // history.go(0)
+    
     history.push(`/vacations/${activity.vacation.id}`)
   }
 }
