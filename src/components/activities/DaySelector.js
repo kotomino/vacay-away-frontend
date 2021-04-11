@@ -10,13 +10,14 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     minWidth: 120,
   },
+  whiteColor: {
+    color: '#e6e6e6'
+  }
 }));
 
 function DaySelector({ numOfDays, handleUpdate, activity, day }) {
 
   const classes = useStyles();
-
-  // const [day, setDay] = React.useState('');
 
   const daysArray = []
 
@@ -40,6 +41,10 @@ function DaySelector({ numOfDays, handleUpdate, activity, day }) {
               id="demo-simple-select"
               value={day}
               name="day"
+              classes={{
+                root: classes.whiteColor,
+                icon: classes.whiteColor
+              }}
               onChange={(e) => handleChange(e)}
               label="Day"
             >
