@@ -7,6 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import CardTravelIcon from '@material-ui/icons/CardTravel';
 import HomeRoundedIcon from '@material-ui/icons/HomeRounded';
 import LoyaltyTwoToneIcon from '@material-ui/icons/LoyaltyTwoTone';
+import { Container } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,7 +28,7 @@ function Navbar() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <Container className={classes.root}>
       <AppBar position="static" className={classes.navbar} elevation={0} >
         <Toolbar>
           <LoyaltyTwoToneIcon color="primary"/>
@@ -42,7 +43,7 @@ function Navbar() {
           </IconButton>
         </Toolbar>
       </AppBar>
-    </div>
+    </Container>
   )
 }
 
