@@ -11,7 +11,7 @@ const useStyles = makeStyles({
 });
 
 
-function VacationHeader({location, start_date, end_date, budget, vacation, handleDelete}) {
+function VacationHeader({location, start_date, end_date, budget, totalCost, vacation, handleDelete}) {
 
     const classes = useStyles();
 
@@ -24,11 +24,11 @@ function VacationHeader({location, start_date, end_date, budget, vacation, handl
 
     return (
       <Card container className={classes.card} elevation={0} >
-        <Typography variant="h3" color="textSecondary" align="center"> 
+        <Typography variant="h2" color="textSecondary" align="center"> 
           <strong>{ location } in {numOfDays} Days</strong>
         </Typography>
         <Typography variant="h5" color="textSecondary" align="center">
-          <strong>Budget: </strong>${ budget } 
+          <strong>Remaining Budget: </strong>${ budget - totalCost} of ${ budget } 
           &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; 
           { tripDates }
         </Typography>
