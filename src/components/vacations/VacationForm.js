@@ -5,16 +5,25 @@ import { addVacation } from '../../actions/vacations';
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    display: 'flex',
-    flexWrap: 'wrap',
+    backgroundColor: fade("#22293D", 0.6), 
   },
   textField: {
+    width: 270,
+  },
+  dateField: {
     marginLeft: theme.spacing(1),
     marginRight: theme.spacing(1),
-    width: 200,
+    width: 130,
   },
   form: {
-    backgroundColor: fade("#F0FFFF", 0.4)
+    display: 'flex',
+    flexWrap: 'wrap',
+    margin: 15,
+    padding: 10,
+    height: 350,  
+  },
+  input: {
+    color: '#e6e6e6'
   }
 }));
 
@@ -68,59 +77,93 @@ function VacationForm({ history, addVacation }) {
 
   return (
     <Container>
-      <Grid container >
-        <Grid item xs={12}>
-          <Typography variant="h3" align="center" color="textSecondary" >Plan Your Next Vacation</Typography>
+      <Grid 
+        container
+        spacing={5}
+        direction="column"
+        alignItems="center"
+        justify="center"
+        >
+        <Grid item xs={12} >
+          <Typography variant="h3" align="center" color="textSecondary" >
+            Plan Your Next Vacation
+          </Typography>
         </Grid>
-        
-        <Grid item xs={4} sm={4}>
-          <Card container className={classes.form} elevation={5} md={6} >
-            <Container>
-             <Grid container >
-            <form className={classes.container} onSubmit={handleSubmit} >
-              <Grid item xs={12} align="center">
-                <TextField label="Location" id="location" name="location" value={location} onInput={handleChange} />
-              </Grid>
-              <Grid item xs={12} align="center">
-                <TextField
-                  id="start_date"
-                  label="Start Date"
-                  type="date"
-                  name="start_date"
-                  defaultValue={start_date}
+        <Grid item xs={12} sm={10} md={7} lg={5} >
+          <Card container className={classes.container} elevation={5} md={6} >
+            <form className={classes.form} onSubmit={handleSubmit} >
+              <Grid container >
+                <Grid item xs={12} align="center">
+                  <TextField 
+                  required
+                  label="Location" 
+                  id="location" 
+                  name="location" 
+                  value={location} 
                   className={classes.textField}
-                  onChange={handleChange}
-                  InputLabelProps={{
-                    shrink: true,
+                  InputProps={{
+                    className: classes.input
                   }}
-                />
-              </Grid>
-              <Grid item xs={12} align="center">
-                <TextField
-                  id="end_date"
-                  label="End Date"
-                  type="date"
-                  name="end_date"
-                  defaultValue={end_date}
+                  onInput={handleChange} />
+                </Grid>
+                <Grid item xs={12} align="center">
+                  <TextField
+                    id="start_date"
+                    label="Start Date"
+                    type="date"
+                    name="start_date"
+                    defaultValue={start_date}
+                    className={classes.dateField}
+                    onChange={handleChange}
+                    InputProps={{
+                      className: classes.input
+                    }}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                
+                  <TextField
+                    id="end_date"
+                    label="End Date"
+                    type="date"
+                    name="end_date"
+                    defaultValue={end_date}
+                    className={classes.dateField}
+                    onChange={handleChange}
+                    InputProps={{
+                      className: classes.input
+                    }}
+                    InputLabelProps={{
+                      shrink: true,
+                    }}
+                  />
+                </Grid>
+                <Grid item xs={12} align="center">
+                  <TextField 
+                  type="number" 
+                  id="budget" 
+                  label="Budget" 
                   className={classes.textField}
-                  onChange={handleChange}
-                  InputLabelProps={{
-                    shrink: true,
+                  InputProps={{
+                    className: classes.input
                   }}
-                />
-              </Grid>
-              <Grid item xs={12} align="center">
-                <TextField type="number" id="budget" label="Budget" name="budget" value={budget} onInput={handleChange} />
-              </Grid>
-              <Grid item xs={12} align="center">
-                <Button variant="contained" color="secondary" type="submit" >Create Trip</Button>
+                  name="budget" 
+                  value={budget} 
+                  onInput={handleChange} />
+                </Grid>
+                <Grid item xs={12} align="center">
+                  <Button 
+                    variant="contained" 
+                    color="secondary" 
+                    type="submit" 
+                    >Create Trip
+                  </Button>
+                </Grid>
               </Grid>
             </form>
-            </Grid>
-            </Container>
           </Card>
-          </Grid>
-          
+        </Grid>
       </Grid>
     </Container>
   )
