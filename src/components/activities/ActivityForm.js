@@ -2,15 +2,31 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux';
 import { addActivity } from '../../actions/activities'
 import { Button, Card, Container, fade, FormControl, Grid, InputLabel, makeStyles, MenuItem, Select, TextField, Typography } from '@material-ui/core';
+import Loading from '../Loading';
 
 const useStyles = makeStyles((theme) => ({
-  container: {
+  form: {
     display: 'flex',
     flexWrap: 'wrap',
+    margin: 15,
+    padding: 10,
+    height: 700,  
   },
-  form: {
-    backgroundColor: fade("#F0FFFF", 0.4)
+  container: {
+    backgroundColor: fade("#22293D", 0.7)
+  },
+  textField: {
+    width: 270,
+  },
+  timeField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 130,
+  },
+  whiteColor: {
+    color: '#e6e6e6'
   }
+  
 }));
 
 function ActivityForm({ history, addActivity, vacations }) {
@@ -23,20 +39,20 @@ function ActivityForm({ history, addActivity, vacations }) {
   const [address, setAddress] = useState('')
   const [notes, setNotes] = useState('')
   const [day, setDay] = useState('Undecided')
-  const [monday_open, setMondayOpen] = useState('0:00')
-  const [monday_close, setMondayClose] = useState('0:00')
-  const [tuesday_open, setTuesdayOpen] = useState('0:00')
-  const [tuesday_close, setTuesdayClose] = useState('0:00')
-  const [wednesday_open, setWednesdayOpen] = useState('0:00')
-  const [wednesday_close, setWednesdayClose] = useState('0:00')
-  const [thursday_open, setThursdayOpen] = useState('0:00')
-  const [thursday_close, setThursdayClose] = useState('0:00')
-  const [friday_open, setFridayOpen] = useState('0:00')
-  const [friday_close, setFridayClose] = useState('0:00')
-  const [saturday_open, setSaturdayOpen] = useState('0:00')
-  const [saturday_close, setSaturdayClose] = useState('0:00')
-  const [sunday_open, setSundayOpen] = useState('0:00')
-  const [sunday_close, setSundayClose] = useState('0:00')
+  const [monday_open, setMondayOpen] = useState('Closed')
+  const [monday_close, setMondayClose] = useState('Closed')
+  const [tuesday_open, setTuesdayOpen] = useState('Closed')
+  const [tuesday_close, setTuesdayClose] = useState('Closed')
+  const [wednesday_open, setWednesdayOpen] = useState('Closed')
+  const [wednesday_close, setWednesdayClose] = useState('Closed')
+  const [thursday_open, setThursdayOpen] = useState('Closed')
+  const [thursday_close, setThursdayClose] = useState('Closed')
+  const [friday_open, setFridayOpen] = useState('Closed')
+  const [friday_close, setFridayClose] = useState('Closed')
+  const [saturday_open, setSaturdayOpen] = useState('Closed')
+  const [saturday_close, setSaturdayClose] = useState('Closed')
+  const [sunday_open, setSundayOpen] = useState('Closed')
+  const [sunday_close, setSundayClose] = useState('Closed')
   const [vacation_id] = useState(parseInt(history.location.pathname.split("/")[2]))
   
   const handleChange = e => {
@@ -71,14 +87,14 @@ function ActivityForm({ history, addActivity, vacations }) {
         setTuesdayClose(e.target.value)
         break;
 
-      case "wednesdayday_open":
+      case "wednesday_open":
         setWednesdayOpen(e.target.value)
         break;
-      case "wednesdayday_close":
+      case "wednesday_close":
         setWednesdayClose(e.target.value)
         break;
 
-      case "thurssday_open":
+      case "thursday_open":
         setThursdayOpen(e.target.value)
         break;
       case "thursday_close":
@@ -95,7 +111,7 @@ function ActivityForm({ history, addActivity, vacations }) {
       case "saturday_open":
         setSaturdayOpen(e.target.value)
         break;
-      case "saturay_close":
+      case "saturday_close":
         setSaturdayClose(e.target.value)
         break;
 
@@ -143,7 +159,7 @@ function ActivityForm({ history, addActivity, vacations }) {
 
     if (!vacation) {
       return (
-        <h3>Loading...</h3>
+        <Loading/>
       )
     }
 
@@ -162,552 +178,687 @@ function ActivityForm({ history, addActivity, vacations }) {
 
     return (
       <Container>
-        <Grid container>
+        <Grid
+          container
+          spacing={3}
+          direction="column"
+          alignItems="center"
+          justify="center"
+          >
           <Grid item xs={12}>
-            <Typography variant="h3" align="center" color="textSecondary" >Add an Activity</Typography>
+            <Typography variant="h3" align="center" color="textSecondary" >
+              Add Activity
+            </Typography>
           </Grid>
-          <Grid item xs={4} sm={4}>
-          <Card container className={classes.form} elevation={5} md={6} >
-            <Container>
-             <Grid container>
-        <form className={classes.container} onSubmit={handleSubmit}>
-              <Grid item xs={12} align="center">
-                <TextField label="Name" id="name" name="name" value={name} onInput={handleChange} />
+          <Grid item xs={12} sm={10} md={7} lg={5} >
+            <Card container className={classes.container} elevation={5} md={6} >
+              <form className={classes.form} onSubmit={handleSubmit}>
+              <Grid container spacing={1}>
+                <Grid item xs={12} align="center">
+                  <TextField 
+                  required
+                  label="Activity Name" 
+                  id="name" 
+                  name="name" 
+                  value={name} 
+                  className={classes.textField}
+                  InputProps={{
+                    className: classes.whiteColor
+                  }}
+                  onInput={handleChange} 
+                  />
+                </Grid>
+                <Grid item xs={12} align="center">
+                  <TextField 
+                  type="number" 
+                  id="cost" 
+                  label="Cost Estimate" 
+                  name="cost" 
+                  value={cost} 
+                  className={classes.textField}
+                  InputProps={{
+                    className: classes.whiteColor
+                  }}
+                  onInput={handleChange} />
+                </Grid>
+                <Grid item xs={12} align="center">
+                  <FormControl className={classes.formControl}>
+                    <InputLabel id="day">Day</InputLabel>
+                    <Select
+                      labelId="day"
+                      name="day"
+                      id="day"
+                      value={day}
+                      className={classes.textField}
+                      classes={{
+                        root: classes.whiteColor,
+                        icon: classes.whiteColor
+                      }}
+                      onChange={handleChange}
+                    >
+                      <MenuItem value="Undecided">Undecided</MenuItem>
+                      { days }
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12} align="center">
+                  <TextField 
+                  label="Address" 
+                  id="address" 
+                  name="address" 
+                  value={address} 
+                  className={classes.textField}
+                  InputProps={{
+                    className: classes.whiteColor
+                  }}
+                  onInput={handleChange} 
+                  />
+                </Grid>
+                <Grid item xs={12} align="center">
+                  <Typography color="textSecondary">
+                    Hours of Operation:
+                  </Typography>
+                </Grid>
+                <Grid item xs={12} align="center">
+                  <FormControl className={classes.formControl}>
+                    <InputLabel id="monday_open">Monday Open</InputLabel>
+                    <Select
+                      labelId="monday_open"
+                      id="monday_open"
+                      name="monday_open"
+                      value={monday_open}
+                      className={classes.timeField}
+                      classes={{
+                        root: classes.whiteColor,
+                        icon: classes.whiteColor
+                      }}
+                      onChange={handleChange}
+                    >
+                      <MenuItem value="Closed">Closed</MenuItem>
+                      <MenuItem value="0:00">0:00</MenuItem>
+                      <MenuItem value="1:00">1:00</MenuItem>
+                      <MenuItem value="2:00">2:00</MenuItem>
+                      <MenuItem value="3:00">3:00</MenuItem>
+                      <MenuItem value="4:00">4:00</MenuItem>
+                      <MenuItem value="5:00">5:00</MenuItem>
+                      <MenuItem value="6:00">6:00</MenuItem>
+                      <MenuItem value="7:00">7:00</MenuItem>
+                      <MenuItem value="8:00">8:00</MenuItem>
+                      <MenuItem value="9:00">9:00</MenuItem>
+                      <MenuItem value="10:00">10:00</MenuItem>
+                      <MenuItem value="11:00">11:00</MenuItem>
+                      <MenuItem value="12:00">12:00</MenuItem>
+                      <MenuItem value="13:00">13:00</MenuItem>
+                      <MenuItem value="14:00">14:00</MenuItem>
+                      <MenuItem value="15:00">15:00</MenuItem>
+                      <MenuItem value="16:00">16:00</MenuItem>
+                      <MenuItem value="17:00">17:00</MenuItem>
+                      <MenuItem value="18:00">18:00</MenuItem>
+                      <MenuItem value="19:00">19:00</MenuItem>
+                      <MenuItem value="20:00">20:00</MenuItem>
+                      <MenuItem value="21:00">21:00</MenuItem>
+                      <MenuItem value="22:00">22:00</MenuItem>
+                      <MenuItem value="23:00">23:00</MenuItem>
+                    </Select>
+                  </FormControl>
+                  <FormControl className={classes.formControl}>
+                    <InputLabel id="monday_close">Monday Close</InputLabel>
+                    <Select
+                      labelId="monday_close"
+                      id="monday_close"
+                      name="monday_close"
+                      value={monday_close}
+                      className={classes.timeField}
+                      classes={{
+                        root: classes.whiteColor,
+                        icon: classes.whiteColor
+                      }}
+                      onChange={handleChange}
+                    >
+                      <MenuItem value="Closed">Closed</MenuItem>
+                      <MenuItem value="0:00">0:00</MenuItem>
+                      <MenuItem value="1:00">1:00</MenuItem>
+                      <MenuItem value="2:00">2:00</MenuItem>
+                      <MenuItem value="3:00">3:00</MenuItem>
+                      <MenuItem value="4:00">4:00</MenuItem>
+                      <MenuItem value="5:00">5:00</MenuItem>
+                      <MenuItem value="6:00">6:00</MenuItem>
+                      <MenuItem value="7:00">7:00</MenuItem>
+                      <MenuItem value="8:00">8:00</MenuItem>
+                      <MenuItem value="9:00">9:00</MenuItem>
+                      <MenuItem value="10:00">10:00</MenuItem>
+                      <MenuItem value="11:00">11:00</MenuItem>
+                      <MenuItem value="12:00">12:00</MenuItem>
+                      <MenuItem value="13:00">13:00</MenuItem>
+                      <MenuItem value="14:00">14:00</MenuItem>
+                      <MenuItem value="15:00">15:00</MenuItem>
+                      <MenuItem value="16:00">16:00</MenuItem>
+                      <MenuItem value="17:00">17:00</MenuItem>
+                      <MenuItem value="18:00">18:00</MenuItem>
+                      <MenuItem value="19:00">19:00</MenuItem>
+                      <MenuItem value="20:00">20:00</MenuItem>
+                      <MenuItem value="21:00">21:00</MenuItem>
+                      <MenuItem value="22:00">22:00</MenuItem>
+                      <MenuItem value="23:00">23:00</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12} align="center">
+                  <FormControl className={classes.formControl}>
+                    <InputLabel id="tuesday_open">Tuesday Open</InputLabel>
+                    <Select
+                      labelId="tuesday_open"
+                      id="tuesday_open"
+                      name="tuesday_open"
+                      value={tuesday_open}
+                      className={classes.timeField}
+                      classes={{
+                        root: classes.whiteColor,
+                        icon: classes.whiteColor
+                      }}
+                      onChange={handleChange}
+                    >
+                      <MenuItem value="Closed">Closed</MenuItem>
+                      <MenuItem value="0:00">0:00</MenuItem>
+                      <MenuItem value="1:00">1:00</MenuItem>
+                      <MenuItem value="2:00">2:00</MenuItem>
+                      <MenuItem value="3:00">3:00</MenuItem>
+                      <MenuItem value="4:00">4:00</MenuItem>
+                      <MenuItem value="5:00">5:00</MenuItem>
+                      <MenuItem value="6:00">6:00</MenuItem>
+                      <MenuItem value="7:00">7:00</MenuItem>
+                      <MenuItem value="8:00">8:00</MenuItem>
+                      <MenuItem value="9:00">9:00</MenuItem>
+                      <MenuItem value="10:00">10:00</MenuItem>
+                      <MenuItem value="11:00">11:00</MenuItem>
+                      <MenuItem value="12:00">12:00</MenuItem>
+                      <MenuItem value="13:00">13:00</MenuItem>
+                      <MenuItem value="14:00">14:00</MenuItem>
+                      <MenuItem value="15:00">15:00</MenuItem>
+                      <MenuItem value="16:00">16:00</MenuItem>
+                      <MenuItem value="17:00">17:00</MenuItem>
+                      <MenuItem value="18:00">18:00</MenuItem>
+                      <MenuItem value="19:00">19:00</MenuItem>
+                      <MenuItem value="20:00">20:00</MenuItem>
+                      <MenuItem value="21:00">21:00</MenuItem>
+                      <MenuItem value="22:00">22:00</MenuItem>
+                      <MenuItem value="23:00">23:00</MenuItem>
+                    </Select>
+                  </FormControl>
+                  <FormControl className={classes.formControl}>
+                    <InputLabel id="tuesday_close">Tuesday Close</InputLabel>
+                    <Select
+                      labelId="tuesday_close"
+                      id="tuesday_close"
+                      name="tuesday_close"
+                      value={tuesday_close}
+                      className={classes.timeField}
+                      classes={{
+                        root: classes.whiteColor,
+                        icon: classes.whiteColor
+                      }}
+                      onChange={handleChange}
+                    >
+                      <MenuItem value="Closed">Closed</MenuItem>
+                      <MenuItem value="0:00">0:00</MenuItem>
+                      <MenuItem value="1:00">1:00</MenuItem>
+                      <MenuItem value="2:00">2:00</MenuItem>
+                      <MenuItem value="3:00">3:00</MenuItem>
+                      <MenuItem value="4:00">4:00</MenuItem>
+                      <MenuItem value="5:00">5:00</MenuItem>
+                      <MenuItem value="6:00">6:00</MenuItem>
+                      <MenuItem value="7:00">7:00</MenuItem>
+                      <MenuItem value="8:00">8:00</MenuItem>
+                      <MenuItem value="9:00">9:00</MenuItem>
+                      <MenuItem value="10:00">10:00</MenuItem>
+                      <MenuItem value="11:00">11:00</MenuItem>
+                      <MenuItem value="12:00">12:00</MenuItem>
+                      <MenuItem value="13:00">13:00</MenuItem>
+                      <MenuItem value="14:00">14:00</MenuItem>
+                      <MenuItem value="15:00">15:00</MenuItem>
+                      <MenuItem value="16:00">16:00</MenuItem>
+                      <MenuItem value="17:00">17:00</MenuItem>
+                      <MenuItem value="18:00">18:00</MenuItem>
+                      <MenuItem value="19:00">19:00</MenuItem>
+                      <MenuItem value="20:00">20:00</MenuItem>
+                      <MenuItem value="21:00">21:00</MenuItem>
+                      <MenuItem value="22:00">22:00</MenuItem>
+                      <MenuItem value="23:00">23:00</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12} align="center">
+                  <FormControl className={classes.formControl}>
+                    <InputLabel id="wednesday_open">Wednesday Open</InputLabel>
+                    <Select
+                      labelId="wednesday_open"
+                      id="wednesday_open"
+                      name="wednesday_open"
+                      value={wednesday_open}
+                      className={classes.timeField}
+                      classes={{
+                        root: classes.whiteColor,
+                        icon: classes.whiteColor
+                      }}
+                      onChange={handleChange}
+                    >
+                      <MenuItem value="Closed">Closed</MenuItem>
+                      <MenuItem value="0:00">0:00</MenuItem>
+                      <MenuItem value="1:00">1:00</MenuItem>
+                      <MenuItem value="2:00">2:00</MenuItem>
+                      <MenuItem value="3:00">3:00</MenuItem>
+                      <MenuItem value="4:00">4:00</MenuItem>
+                      <MenuItem value="5:00">5:00</MenuItem>
+                      <MenuItem value="6:00">6:00</MenuItem>
+                      <MenuItem value="7:00">7:00</MenuItem>
+                      <MenuItem value="8:00">8:00</MenuItem>
+                      <MenuItem value="9:00">9:00</MenuItem>
+                      <MenuItem value="10:00">10:00</MenuItem>
+                      <MenuItem value="11:00">11:00</MenuItem>
+                      <MenuItem value="12:00">12:00</MenuItem>
+                      <MenuItem value="13:00">13:00</MenuItem>
+                      <MenuItem value="14:00">14:00</MenuItem>
+                      <MenuItem value="15:00">15:00</MenuItem>
+                      <MenuItem value="16:00">16:00</MenuItem>
+                      <MenuItem value="17:00">17:00</MenuItem>
+                      <MenuItem value="18:00">18:00</MenuItem>
+                      <MenuItem value="19:00">19:00</MenuItem>
+                      <MenuItem value="20:00">20:00</MenuItem>
+                      <MenuItem value="21:00">21:00</MenuItem>
+                      <MenuItem value="22:00">22:00</MenuItem>
+                      <MenuItem value="23:00">23:00</MenuItem>
+                    </Select>
+                  </FormControl>
+                  <FormControl className={classes.formControl}>
+                    <InputLabel id="wednesday_close">Wednesday Close</InputLabel>
+                    <Select
+                      labelId="wednesday_close"
+                      id="wednesday_close"
+                      name="wednesday_close"
+                      value={wednesday_close}
+                      className={classes.timeField}
+                      classes={{
+                        root: classes.whiteColor,
+                        icon: classes.whiteColor
+                      }}
+                      onChange={handleChange}
+                    >
+                      <MenuItem value="Closed">Closed</MenuItem>
+                      <MenuItem value="0:00">0:00</MenuItem>
+                      <MenuItem value="1:00">1:00</MenuItem>
+                      <MenuItem value="2:00">2:00</MenuItem>
+                      <MenuItem value="3:00">3:00</MenuItem>
+                      <MenuItem value="4:00">4:00</MenuItem>
+                      <MenuItem value="5:00">5:00</MenuItem>
+                      <MenuItem value="6:00">6:00</MenuItem>
+                      <MenuItem value="7:00">7:00</MenuItem>
+                      <MenuItem value="8:00">8:00</MenuItem>
+                      <MenuItem value="9:00">9:00</MenuItem>
+                      <MenuItem value="10:00">10:00</MenuItem>
+                      <MenuItem value="11:00">11:00</MenuItem>
+                      <MenuItem value="12:00">12:00</MenuItem>
+                      <MenuItem value="13:00">13:00</MenuItem>
+                      <MenuItem value="14:00">14:00</MenuItem>
+                      <MenuItem value="15:00">15:00</MenuItem>
+                      <MenuItem value="16:00">16:00</MenuItem>
+                      <MenuItem value="17:00">17:00</MenuItem>
+                      <MenuItem value="18:00">18:00</MenuItem>
+                      <MenuItem value="19:00">19:00</MenuItem>
+                      <MenuItem value="20:00">20:00</MenuItem>
+                      <MenuItem value="21:00">21:00</MenuItem>
+                      <MenuItem value="22:00">22:00</MenuItem>
+                      <MenuItem value="23:00">23:00</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12} align="center">
+                  <FormControl className={classes.formControl}>
+                    <InputLabel id="thursday_open">Thursday Open</InputLabel>
+                    <Select
+                      labelId="thursday_open"
+                      id="thursday_open"
+                      name="thursday_open"
+                      value={thursday_open}
+                      className={classes.timeField}
+                      classes={{
+                        root: classes.whiteColor,
+                        icon: classes.whiteColor
+                      }}
+                      onChange={handleChange}
+                    >
+                      <MenuItem value="Closed">Closed</MenuItem>
+                      <MenuItem value="0:00">0:00</MenuItem>
+                      <MenuItem value="1:00">1:00</MenuItem>
+                      <MenuItem value="2:00">2:00</MenuItem>
+                      <MenuItem value="3:00">3:00</MenuItem>
+                      <MenuItem value="4:00">4:00</MenuItem>
+                      <MenuItem value="5:00">5:00</MenuItem>
+                      <MenuItem value="6:00">6:00</MenuItem>
+                      <MenuItem value="7:00">7:00</MenuItem>
+                      <MenuItem value="8:00">8:00</MenuItem>
+                      <MenuItem value="9:00">9:00</MenuItem>
+                      <MenuItem value="10:00">10:00</MenuItem>
+                      <MenuItem value="11:00">11:00</MenuItem>
+                      <MenuItem value="12:00">12:00</MenuItem>
+                      <MenuItem value="13:00">13:00</MenuItem>
+                      <MenuItem value="14:00">14:00</MenuItem>
+                      <MenuItem value="15:00">15:00</MenuItem>
+                      <MenuItem value="16:00">16:00</MenuItem>
+                      <MenuItem value="17:00">17:00</MenuItem>
+                      <MenuItem value="18:00">18:00</MenuItem>
+                      <MenuItem value="19:00">19:00</MenuItem>
+                      <MenuItem value="20:00">20:00</MenuItem>
+                      <MenuItem value="21:00">21:00</MenuItem>
+                      <MenuItem value="22:00">22:00</MenuItem>
+                      <MenuItem value="23:00">23:00</MenuItem>
+                    </Select>
+                  </FormControl>
+                  <FormControl className={classes.formControl}>
+                    <InputLabel id="thursday_close">Thursday Close</InputLabel>
+                    <Select
+                      labelId="thursday_close"
+                      id="thursday_close"
+                      name="thursday_close"
+                      value={thursday_close}
+                      className={classes.timeField}
+                      classes={{
+                        root: classes.whiteColor,
+                        icon: classes.whiteColor
+                      }}
+                      onChange={handleChange}
+                    >
+                      <MenuItem value="Closed">Closed</MenuItem>
+                      <MenuItem value="0:00">0:00</MenuItem>
+                      <MenuItem value="1:00">1:00</MenuItem>
+                      <MenuItem value="2:00">2:00</MenuItem>
+                      <MenuItem value="3:00">3:00</MenuItem>
+                      <MenuItem value="4:00">4:00</MenuItem>
+                      <MenuItem value="5:00">5:00</MenuItem>
+                      <MenuItem value="6:00">6:00</MenuItem>
+                      <MenuItem value="7:00">7:00</MenuItem>
+                      <MenuItem value="8:00">8:00</MenuItem>
+                      <MenuItem value="9:00">9:00</MenuItem>
+                      <MenuItem value="10:00">10:00</MenuItem>
+                      <MenuItem value="11:00">11:00</MenuItem>
+                      <MenuItem value="12:00">12:00</MenuItem>
+                      <MenuItem value="13:00">13:00</MenuItem>
+                      <MenuItem value="14:00">14:00</MenuItem>
+                      <MenuItem value="15:00">15:00</MenuItem>
+                      <MenuItem value="16:00">16:00</MenuItem>
+                      <MenuItem value="17:00">17:00</MenuItem>
+                      <MenuItem value="18:00">18:00</MenuItem>
+                      <MenuItem value="19:00">19:00</MenuItem>
+                      <MenuItem value="20:00">20:00</MenuItem>
+                      <MenuItem value="21:00">21:00</MenuItem>
+                      <MenuItem value="22:00">22:00</MenuItem>
+                      <MenuItem value="23:00">23:00</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12} align="center">
+                  <FormControl className={classes.formControl}>
+                    <InputLabel id="friday_open">Friday Open</InputLabel>
+                    <Select
+                      labelId="friday_open"
+                      id="friday_open"
+                      name="friday_open"
+                      value={friday_open}
+                      className={classes.timeField}
+                      classes={{
+                        root: classes.whiteColor,
+                        icon: classes.whiteColor
+                      }}
+                      onChange={handleChange}
+                    >
+                      <MenuItem value="Closed">Closed</MenuItem>
+                      <MenuItem value="0:00">0:00</MenuItem>
+                      <MenuItem value="1:00">1:00</MenuItem>
+                      <MenuItem value="2:00">2:00</MenuItem>
+                      <MenuItem value="3:00">3:00</MenuItem>
+                      <MenuItem value="4:00">4:00</MenuItem>
+                      <MenuItem value="5:00">5:00</MenuItem>
+                      <MenuItem value="6:00">6:00</MenuItem>
+                      <MenuItem value="7:00">7:00</MenuItem>
+                      <MenuItem value="8:00">8:00</MenuItem>
+                      <MenuItem value="9:00">9:00</MenuItem>
+                      <MenuItem value="10:00">10:00</MenuItem>
+                      <MenuItem value="11:00">11:00</MenuItem>
+                      <MenuItem value="12:00">12:00</MenuItem>
+                      <MenuItem value="13:00">13:00</MenuItem>
+                      <MenuItem value="14:00">14:00</MenuItem>
+                      <MenuItem value="15:00">15:00</MenuItem>
+                      <MenuItem value="16:00">16:00</MenuItem>
+                      <MenuItem value="17:00">17:00</MenuItem>
+                      <MenuItem value="18:00">18:00</MenuItem>
+                      <MenuItem value="19:00">19:00</MenuItem>
+                      <MenuItem value="20:00">20:00</MenuItem>
+                      <MenuItem value="21:00">21:00</MenuItem>
+                      <MenuItem value="22:00">22:00</MenuItem>
+                      <MenuItem value="23:00">23:00</MenuItem>
+                    </Select>
+                  </FormControl>
+                  <FormControl className={classes.formControl}>
+                    <InputLabel id="friday_close">Friday Close</InputLabel>
+                    <Select
+                      labelId="friday_close"
+                      id="friday_close"
+                      name="friday_close"
+                      value={friday_close}
+                      className={classes.timeField}
+                      classes={{
+                        root: classes.whiteColor,
+                        icon: classes.whiteColor
+                      }}
+                      onChange={handleChange}
+                    >
+                      <MenuItem value="Closed">Closed</MenuItem>
+                      <MenuItem value="0:00">0:00</MenuItem>
+                      <MenuItem value="1:00">1:00</MenuItem>
+                      <MenuItem value="2:00">2:00</MenuItem>
+                      <MenuItem value="3:00">3:00</MenuItem>
+                      <MenuItem value="4:00">4:00</MenuItem>
+                      <MenuItem value="5:00">5:00</MenuItem>
+                      <MenuItem value="6:00">6:00</MenuItem>
+                      <MenuItem value="7:00">7:00</MenuItem>
+                      <MenuItem value="8:00">8:00</MenuItem>
+                      <MenuItem value="9:00">9:00</MenuItem>
+                      <MenuItem value="10:00">10:00</MenuItem>
+                      <MenuItem value="11:00">11:00</MenuItem>
+                      <MenuItem value="12:00">12:00</MenuItem>
+                      <MenuItem value="13:00">13:00</MenuItem>
+                      <MenuItem value="14:00">14:00</MenuItem>
+                      <MenuItem value="15:00">15:00</MenuItem>
+                      <MenuItem value="16:00">16:00</MenuItem>
+                      <MenuItem value="17:00">17:00</MenuItem>
+                      <MenuItem value="18:00">18:00</MenuItem>
+                      <MenuItem value="19:00">19:00</MenuItem>
+                      <MenuItem value="20:00">20:00</MenuItem>
+                      <MenuItem value="21:00">21:00</MenuItem>
+                      <MenuItem value="22:00">22:00</MenuItem>
+                      <MenuItem value="23:00">23:00</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12} align="center">
+                  <FormControl className={classes.formControl}>
+                    <InputLabel id="saturday_open">Saturday Open</InputLabel>
+                    <Select
+                      labelId="saturday_open"
+                      id="saturday_open"
+                      name="saturday_open"
+                      value={saturday_open}
+                      className={classes.timeField}
+                      classes={{
+                        root: classes.whiteColor,
+                        icon: classes.whiteColor
+                      }}
+                      onChange={handleChange}
+                    >
+                      <MenuItem value="Closed">Closed</MenuItem>
+                      <MenuItem value="0:00">0:00</MenuItem>
+                      <MenuItem value="1:00">1:00</MenuItem>
+                      <MenuItem value="2:00">2:00</MenuItem>
+                      <MenuItem value="3:00">3:00</MenuItem>
+                      <MenuItem value="4:00">4:00</MenuItem>
+                      <MenuItem value="5:00">5:00</MenuItem>
+                      <MenuItem value="6:00">6:00</MenuItem>
+                      <MenuItem value="7:00">7:00</MenuItem>
+                      <MenuItem value="8:00">8:00</MenuItem>
+                      <MenuItem value="9:00">9:00</MenuItem>
+                      <MenuItem value="10:00">10:00</MenuItem>
+                      <MenuItem value="11:00">11:00</MenuItem>
+                      <MenuItem value="12:00">12:00</MenuItem>
+                      <MenuItem value="13:00">13:00</MenuItem>
+                      <MenuItem value="14:00">14:00</MenuItem>
+                      <MenuItem value="15:00">15:00</MenuItem>
+                      <MenuItem value="16:00">16:00</MenuItem>
+                      <MenuItem value="17:00">17:00</MenuItem>
+                      <MenuItem value="18:00">18:00</MenuItem>
+                      <MenuItem value="19:00">19:00</MenuItem>
+                      <MenuItem value="20:00">20:00</MenuItem>
+                      <MenuItem value="21:00">21:00</MenuItem>
+                      <MenuItem value="22:00">22:00</MenuItem>
+                      <MenuItem value="23:00">23:00</MenuItem>
+                    </Select>
+                  </FormControl>
+                  <FormControl className={classes.formControl}>
+                    <InputLabel id="saturday_close">Saturday Close</InputLabel>
+                    <Select
+                      labelId="saturday_close"
+                      id="saturday_close"
+                      name="saturday_close"
+                      value={saturday_close}
+                      className={classes.timeField}
+                      classes={{
+                        root: classes.whiteColor,
+                        icon: classes.whiteColor
+                      }}
+                      onChange={handleChange}
+                    >
+                      <MenuItem value="Closed">Closed</MenuItem>
+                      <MenuItem value="0:00">0:00</MenuItem>
+                      <MenuItem value="1:00">1:00</MenuItem>
+                      <MenuItem value="2:00">2:00</MenuItem>
+                      <MenuItem value="3:00">3:00</MenuItem>
+                      <MenuItem value="4:00">4:00</MenuItem>
+                      <MenuItem value="5:00">5:00</MenuItem>
+                      <MenuItem value="6:00">6:00</MenuItem>
+                      <MenuItem value="7:00">7:00</MenuItem>
+                      <MenuItem value="8:00">8:00</MenuItem>
+                      <MenuItem value="9:00">9:00</MenuItem>
+                      <MenuItem value="10:00">10:00</MenuItem>
+                      <MenuItem value="11:00">11:00</MenuItem>
+                      <MenuItem value="12:00">12:00</MenuItem>
+                      <MenuItem value="13:00">13:00</MenuItem>
+                      <MenuItem value="14:00">14:00</MenuItem>
+                      <MenuItem value="15:00">15:00</MenuItem>
+                      <MenuItem value="16:00">16:00</MenuItem>
+                      <MenuItem value="17:00">17:00</MenuItem>
+                      <MenuItem value="18:00">18:00</MenuItem>
+                      <MenuItem value="19:00">19:00</MenuItem>
+                      <MenuItem value="20:00">20:00</MenuItem>
+                      <MenuItem value="21:00">21:00</MenuItem>
+                      <MenuItem value="22:00">22:00</MenuItem>
+                      <MenuItem value="23:00">23:00</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12} align="center">
+                  <FormControl className={classes.formControl}>
+                    <InputLabel id="sunday_open">Sunday Open</InputLabel>
+                    <Select
+                      labelId="sunday_open"
+                      id="sunday_open"
+                      name="sunday_open"
+                      value={sunday_open}
+                      className={classes.timeField}
+                      classes={{
+                        root: classes.whiteColor,
+                        icon: classes.whiteColor
+                      }}
+                      onChange={handleChange}
+                    >
+                      <MenuItem value="Closed">Closed</MenuItem>
+                      <MenuItem value="0:00">0:00</MenuItem>
+                      <MenuItem value="1:00">1:00</MenuItem>
+                      <MenuItem value="2:00">2:00</MenuItem>
+                      <MenuItem value="3:00">3:00</MenuItem>
+                      <MenuItem value="4:00">4:00</MenuItem>
+                      <MenuItem value="5:00">5:00</MenuItem>
+                      <MenuItem value="6:00">6:00</MenuItem>
+                      <MenuItem value="7:00">7:00</MenuItem>
+                      <MenuItem value="8:00">8:00</MenuItem>
+                      <MenuItem value="9:00">9:00</MenuItem>
+                      <MenuItem value="10:00">10:00</MenuItem>
+                      <MenuItem value="11:00">11:00</MenuItem>
+                      <MenuItem value="12:00">12:00</MenuItem>
+                      <MenuItem value="13:00">13:00</MenuItem>
+                      <MenuItem value="14:00">14:00</MenuItem>
+                      <MenuItem value="15:00">15:00</MenuItem>
+                      <MenuItem value="16:00">16:00</MenuItem>
+                      <MenuItem value="17:00">17:00</MenuItem>
+                      <MenuItem value="18:00">18:00</MenuItem>
+                      <MenuItem value="19:00">19:00</MenuItem>
+                      <MenuItem value="20:00">20:00</MenuItem>
+                      <MenuItem value="21:00">21:00</MenuItem>
+                      <MenuItem value="22:00">22:00</MenuItem>
+                      <MenuItem value="23:00">23:00</MenuItem>
+                    </Select>
+                  </FormControl>
+                  <FormControl className={classes.formControl}>
+                    <InputLabel id="sunday_close">Sunday Close</InputLabel>
+                    <Select
+                      labelId="sunday_close"
+                      id="sunday_close"
+                      name="sunday_close"
+                      value={sunday_close}
+                      className={classes.timeField}
+                      classes={{
+                        root: classes.whiteColor,
+                        icon: classes.whiteColor
+                      }}
+                      onChange={handleChange}
+                    >
+                      <MenuItem value="Closed">Closed</MenuItem>
+                      <MenuItem value="0:00">0:00</MenuItem>
+                      <MenuItem value="1:00">1:00</MenuItem>
+                      <MenuItem value="2:00">2:00</MenuItem>
+                      <MenuItem value="3:00">3:00</MenuItem>
+                      <MenuItem value="4:00">4:00</MenuItem>
+                      <MenuItem value="5:00">5:00</MenuItem>
+                      <MenuItem value="6:00">6:00</MenuItem>
+                      <MenuItem value="7:00">7:00</MenuItem>
+                      <MenuItem value="8:00">8:00</MenuItem>
+                      <MenuItem value="9:00">9:00</MenuItem>
+                      <MenuItem value="10:00">10:00</MenuItem>
+                      <MenuItem value="11:00">11:00</MenuItem>
+                      <MenuItem value="12:00">12:00</MenuItem>
+                      <MenuItem value="13:00">13:00</MenuItem>
+                      <MenuItem value="14:00">14:00</MenuItem>
+                      <MenuItem value="15:00">15:00</MenuItem>
+                      <MenuItem value="16:00">16:00</MenuItem>
+                      <MenuItem value="17:00">17:00</MenuItem>
+                      <MenuItem value="18:00">18:00</MenuItem>
+                      <MenuItem value="19:00">19:00</MenuItem>
+                      <MenuItem value="20:00">20:00</MenuItem>
+                      <MenuItem value="21:00">21:00</MenuItem>
+                      <MenuItem value="22:00">22:00</MenuItem>
+                      <MenuItem value="23:00">23:00</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12} align="center">
+                  <Button 
+                    variant="contained" 
+                    color="secondary" 
+                    type="submit" 
+                    >Add Activity
+                  </Button>
+                </Grid>
               </Grid>
-              <Grid item xs={12} align="center">
-                <TextField type="number" id="cost" label="Cost" name="cost" value={cost} onInput={handleChange} />
-              </Grid>
-              <Grid item xs={12} align="center">
-                <TextField label="Address" id="address" name="address" value={address} onInput={handleChange} />
-              </Grid>
-              <Grid item xs={12} align="center">
-              <FormControl className={classes.formControl}>
-                <InputLabel id="monday_open">Monday Open</InputLabel>
-                <Select
-                  labelId="monday_open"
-                  id="monday_open"
-                  name="monday_open"
-                  value={monday_open}
-                  onChange={handleChange}
-                >
-                  <MenuItem value="0:00">0:00</MenuItem>
-                  <MenuItem value="1:00">1:00</MenuItem>
-                  <MenuItem value="2:00">2:00</MenuItem>
-                  <MenuItem value="3:00">3:00</MenuItem>
-                  <MenuItem value="4:00">4:00</MenuItem>
-                  <MenuItem value="5:00">5:00</MenuItem>
-                  <MenuItem value="6:00">6:00</MenuItem>
-                  <MenuItem value="7:00">7:00</MenuItem>
-                  <MenuItem value="8:00">8:00</MenuItem>
-                  <MenuItem value="9:00">9:00</MenuItem>
-                  <MenuItem value="10:00">10:00</MenuItem>
-                  <MenuItem value="11:00">11:00</MenuItem>
-                  <MenuItem value="12:00">12:00</MenuItem>
-                  <MenuItem value="13:00">13:00</MenuItem>
-                  <MenuItem value="14:00">14:00</MenuItem>
-                  <MenuItem value="15:00">15:00</MenuItem>
-                  <MenuItem value="16:00">16:00</MenuItem>
-                  <MenuItem value="17:00">17:00</MenuItem>
-                  <MenuItem value="18:00">18:00</MenuItem>
-                  <MenuItem value="19:00">19:00</MenuItem>
-                  <MenuItem value="20:00">20:00</MenuItem>
-                  <MenuItem value="21:00">21:00</MenuItem>
-                  <MenuItem value="22:00">22:00</MenuItem>
-                  <MenuItem value="23:00">23:00</MenuItem>
-                </Select>
-              </FormControl>
-              <FormControl className={classes.formControl}>
-                <InputLabel id="monday_close">Monday Close</InputLabel>
-                <Select
-                  labelId="monday_close"
-                  id="monday_close"
-                  name="monday_close"
-                  value={monday_close}
-                  onChange={handleChange}
-                >
-                  <MenuItem value="0:00">0:00</MenuItem>
-                  <MenuItem value="1:00">1:00</MenuItem>
-                  <MenuItem value="2:00">2:00</MenuItem>
-                  <MenuItem value="3:00">3:00</MenuItem>
-                  <MenuItem value="4:00">4:00</MenuItem>
-                  <MenuItem value="5:00">5:00</MenuItem>
-                  <MenuItem value="6:00">6:00</MenuItem>
-                  <MenuItem value="7:00">7:00</MenuItem>
-                  <MenuItem value="8:00">8:00</MenuItem>
-                  <MenuItem value="9:00">9:00</MenuItem>
-                  <MenuItem value="10:00">10:00</MenuItem>
-                  <MenuItem value="11:00">11:00</MenuItem>
-                  <MenuItem value="12:00">12:00</MenuItem>
-                  <MenuItem value="13:00">13:00</MenuItem>
-                  <MenuItem value="14:00">14:00</MenuItem>
-                  <MenuItem value="15:00">15:00</MenuItem>
-                  <MenuItem value="16:00">16:00</MenuItem>
-                  <MenuItem value="17:00">17:00</MenuItem>
-                  <MenuItem value="18:00">18:00</MenuItem>
-                  <MenuItem value="19:00">19:00</MenuItem>
-                  <MenuItem value="20:00">20:00</MenuItem>
-                  <MenuItem value="21:00">21:00</MenuItem>
-                  <MenuItem value="22:00">22:00</MenuItem>
-                  <MenuItem value="23:00">23:00</MenuItem>
-                </Select>
-              </FormControl>
-              </Grid>
-              <Grid item xs={12} align="center">
-              <FormControl className={classes.formControl}>
-                <InputLabel id="tuesday_open">Tuesday Open</InputLabel>
-                <Select
-                  labelId="tuesday_open"
-                  id="tuesday_open"
-                  name="tuesday_open"
-                  value={tuesday_open}
-                  onChange={handleChange}
-                >
-                  <MenuItem value="0:00">0:00</MenuItem>
-                  <MenuItem value="1:00">1:00</MenuItem>
-                  <MenuItem value="2:00">2:00</MenuItem>
-                  <MenuItem value="3:00">3:00</MenuItem>
-                  <MenuItem value="4:00">4:00</MenuItem>
-                  <MenuItem value="5:00">5:00</MenuItem>
-                  <MenuItem value="6:00">6:00</MenuItem>
-                  <MenuItem value="7:00">7:00</MenuItem>
-                  <MenuItem value="8:00">8:00</MenuItem>
-                  <MenuItem value="9:00">9:00</MenuItem>
-                  <MenuItem value="10:00">10:00</MenuItem>
-                  <MenuItem value="11:00">11:00</MenuItem>
-                  <MenuItem value="12:00">12:00</MenuItem>
-                  <MenuItem value="13:00">13:00</MenuItem>
-                  <MenuItem value="14:00">14:00</MenuItem>
-                  <MenuItem value="15:00">15:00</MenuItem>
-                  <MenuItem value="16:00">16:00</MenuItem>
-                  <MenuItem value="17:00">17:00</MenuItem>
-                  <MenuItem value="18:00">18:00</MenuItem>
-                  <MenuItem value="19:00">19:00</MenuItem>
-                  <MenuItem value="20:00">20:00</MenuItem>
-                  <MenuItem value="21:00">21:00</MenuItem>
-                  <MenuItem value="22:00">22:00</MenuItem>
-                  <MenuItem value="23:00">23:00</MenuItem>
-                </Select>
-              </FormControl>
-              <FormControl className={classes.formControl}>
-                <InputLabel id="tuesday_close">Tuesday Close</InputLabel>
-                <Select
-                  labelId="tuesday_close"
-                  id="tuesday_close"
-                  name="tuesday_close"
-                  value={tuesday_close}
-                  onChange={handleChange}
-                >
-                  <MenuItem value="0:00">0:00</MenuItem>
-                  <MenuItem value="1:00">1:00</MenuItem>
-                  <MenuItem value="2:00">2:00</MenuItem>
-                  <MenuItem value="3:00">3:00</MenuItem>
-                  <MenuItem value="4:00">4:00</MenuItem>
-                  <MenuItem value="5:00">5:00</MenuItem>
-                  <MenuItem value="6:00">6:00</MenuItem>
-                  <MenuItem value="7:00">7:00</MenuItem>
-                  <MenuItem value="8:00">8:00</MenuItem>
-                  <MenuItem value="9:00">9:00</MenuItem>
-                  <MenuItem value="10:00">10:00</MenuItem>
-                  <MenuItem value="11:00">11:00</MenuItem>
-                  <MenuItem value="12:00">12:00</MenuItem>
-                  <MenuItem value="13:00">13:00</MenuItem>
-                  <MenuItem value="14:00">14:00</MenuItem>
-                  <MenuItem value="15:00">15:00</MenuItem>
-                  <MenuItem value="16:00">16:00</MenuItem>
-                  <MenuItem value="17:00">17:00</MenuItem>
-                  <MenuItem value="18:00">18:00</MenuItem>
-                  <MenuItem value="19:00">19:00</MenuItem>
-                  <MenuItem value="20:00">20:00</MenuItem>
-                  <MenuItem value="21:00">21:00</MenuItem>
-                  <MenuItem value="22:00">22:00</MenuItem>
-                  <MenuItem value="23:00">23:00</MenuItem>
-                </Select>
-              </FormControl>
-              </Grid>
-              <Grid item xs={12} align="center">
-              <FormControl className={classes.formControl}>
-                <InputLabel id="wednesday_open">Wednesday Open</InputLabel>
-                <Select
-                  labelId="wednesday_open"
-                  id="wednesday_open"
-                  name="wednesday_open"
-                  value={wednesday_open}
-                  onChange={handleChange}
-                >
-                  <MenuItem value="0:00">0:00</MenuItem>
-                  <MenuItem value="1:00">1:00</MenuItem>
-                  <MenuItem value="2:00">2:00</MenuItem>
-                  <MenuItem value="3:00">3:00</MenuItem>
-                  <MenuItem value="4:00">4:00</MenuItem>
-                  <MenuItem value="5:00">5:00</MenuItem>
-                  <MenuItem value="6:00">6:00</MenuItem>
-                  <MenuItem value="7:00">7:00</MenuItem>
-                  <MenuItem value="8:00">8:00</MenuItem>
-                  <MenuItem value="9:00">9:00</MenuItem>
-                  <MenuItem value="10:00">10:00</MenuItem>
-                  <MenuItem value="11:00">11:00</MenuItem>
-                  <MenuItem value="12:00">12:00</MenuItem>
-                  <MenuItem value="13:00">13:00</MenuItem>
-                  <MenuItem value="14:00">14:00</MenuItem>
-                  <MenuItem value="15:00">15:00</MenuItem>
-                  <MenuItem value="16:00">16:00</MenuItem>
-                  <MenuItem value="17:00">17:00</MenuItem>
-                  <MenuItem value="18:00">18:00</MenuItem>
-                  <MenuItem value="19:00">19:00</MenuItem>
-                  <MenuItem value="20:00">20:00</MenuItem>
-                  <MenuItem value="21:00">21:00</MenuItem>
-                  <MenuItem value="22:00">22:00</MenuItem>
-                  <MenuItem value="23:00">23:00</MenuItem>
-                </Select>
-              </FormControl>
-              <FormControl className={classes.formControl}>
-                <InputLabel id="wednesday_close">Wednesday Close</InputLabel>
-                <Select
-                  labelId="wednesday_close"
-                  id="wednesday_close"
-                  name="wednesday_Close"
-                  value={wednesday_close}
-                  onChange={handleChange}
-                >
-                  <MenuItem value="0:00">0:00</MenuItem>
-                  <MenuItem value="1:00">1:00</MenuItem>
-                  <MenuItem value="2:00">2:00</MenuItem>
-                  <MenuItem value="3:00">3:00</MenuItem>
-                  <MenuItem value="4:00">4:00</MenuItem>
-                  <MenuItem value="5:00">5:00</MenuItem>
-                  <MenuItem value="6:00">6:00</MenuItem>
-                  <MenuItem value="7:00">7:00</MenuItem>
-                  <MenuItem value="8:00">8:00</MenuItem>
-                  <MenuItem value="9:00">9:00</MenuItem>
-                  <MenuItem value="10:00">10:00</MenuItem>
-                  <MenuItem value="11:00">11:00</MenuItem>
-                  <MenuItem value="12:00">12:00</MenuItem>
-                  <MenuItem value="13:00">13:00</MenuItem>
-                  <MenuItem value="14:00">14:00</MenuItem>
-                  <MenuItem value="15:00">15:00</MenuItem>
-                  <MenuItem value="16:00">16:00</MenuItem>
-                  <MenuItem value="17:00">17:00</MenuItem>
-                  <MenuItem value="18:00">18:00</MenuItem>
-                  <MenuItem value="19:00">19:00</MenuItem>
-                  <MenuItem value="20:00">20:00</MenuItem>
-                  <MenuItem value="21:00">21:00</MenuItem>
-                  <MenuItem value="22:00">22:00</MenuItem>
-                  <MenuItem value="23:00">23:00</MenuItem>
-                </Select>
-              </FormControl>
-              </Grid>
-              <Grid item xs={12} align="center">
-              <FormControl className={classes.formControl}>
-                <InputLabel id="thursday_open">Thursday Open</InputLabel>
-                <Select
-                  labelId="thursday_open"
-                  id="thursday_open"
-                  name="thursday_open"
-                  value={thursday_open}
-                  onChange={handleChange}
-                >
-                  <MenuItem value="0:00">0:00</MenuItem>
-                  <MenuItem value="1:00">1:00</MenuItem>
-                  <MenuItem value="2:00">2:00</MenuItem>
-                  <MenuItem value="3:00">3:00</MenuItem>
-                  <MenuItem value="4:00">4:00</MenuItem>
-                  <MenuItem value="5:00">5:00</MenuItem>
-                  <MenuItem value="6:00">6:00</MenuItem>
-                  <MenuItem value="7:00">7:00</MenuItem>
-                  <MenuItem value="8:00">8:00</MenuItem>
-                  <MenuItem value="9:00">9:00</MenuItem>
-                  <MenuItem value="10:00">10:00</MenuItem>
-                  <MenuItem value="11:00">11:00</MenuItem>
-                  <MenuItem value="12:00">12:00</MenuItem>
-                  <MenuItem value="13:00">13:00</MenuItem>
-                  <MenuItem value="14:00">14:00</MenuItem>
-                  <MenuItem value="15:00">15:00</MenuItem>
-                  <MenuItem value="16:00">16:00</MenuItem>
-                  <MenuItem value="17:00">17:00</MenuItem>
-                  <MenuItem value="18:00">18:00</MenuItem>
-                  <MenuItem value="19:00">19:00</MenuItem>
-                  <MenuItem value="20:00">20:00</MenuItem>
-                  <MenuItem value="21:00">21:00</MenuItem>
-                  <MenuItem value="22:00">22:00</MenuItem>
-                  <MenuItem value="23:00">23:00</MenuItem>
-                </Select>
-              </FormControl>
-              <FormControl className={classes.formControl}>
-                <InputLabel id="thursday_close">Thursday Close</InputLabel>
-                <Select
-                  labelId="thursday_close"
-                  id="thursday_close"
-                  name="thursday_close"
-                  value={thursday_close}
-                  onChange={handleChange}
-                >
-                  <MenuItem value="0:00">0:00</MenuItem>
-                  <MenuItem value="1:00">1:00</MenuItem>
-                  <MenuItem value="2:00">2:00</MenuItem>
-                  <MenuItem value="3:00">3:00</MenuItem>
-                  <MenuItem value="4:00">4:00</MenuItem>
-                  <MenuItem value="5:00">5:00</MenuItem>
-                  <MenuItem value="6:00">6:00</MenuItem>
-                  <MenuItem value="7:00">7:00</MenuItem>
-                  <MenuItem value="8:00">8:00</MenuItem>
-                  <MenuItem value="9:00">9:00</MenuItem>
-                  <MenuItem value="10:00">10:00</MenuItem>
-                  <MenuItem value="11:00">11:00</MenuItem>
-                  <MenuItem value="12:00">12:00</MenuItem>
-                  <MenuItem value="13:00">13:00</MenuItem>
-                  <MenuItem value="14:00">14:00</MenuItem>
-                  <MenuItem value="15:00">15:00</MenuItem>
-                  <MenuItem value="16:00">16:00</MenuItem>
-                  <MenuItem value="17:00">17:00</MenuItem>
-                  <MenuItem value="18:00">18:00</MenuItem>
-                  <MenuItem value="19:00">19:00</MenuItem>
-                  <MenuItem value="20:00">20:00</MenuItem>
-                  <MenuItem value="21:00">21:00</MenuItem>
-                  <MenuItem value="22:00">22:00</MenuItem>
-                  <MenuItem value="23:00">23:00</MenuItem>
-                </Select>
-              </FormControl>
-              </Grid>
-              <Grid item xs={12} align="center">
-              <FormControl className={classes.formControl}>
-                <InputLabel id="friday_open">Friday Open</InputLabel>
-                <Select
-                  labelId="friday_open"
-                  id="friday_open"
-                  name="friday_open"
-                  value={friday_open}
-                  onChange={handleChange}
-                >
-                  <MenuItem value="0:00">0:00</MenuItem>
-                  <MenuItem value="1:00">1:00</MenuItem>
-                  <MenuItem value="2:00">2:00</MenuItem>
-                  <MenuItem value="3:00">3:00</MenuItem>
-                  <MenuItem value="4:00">4:00</MenuItem>
-                  <MenuItem value="5:00">5:00</MenuItem>
-                  <MenuItem value="6:00">6:00</MenuItem>
-                  <MenuItem value="7:00">7:00</MenuItem>
-                  <MenuItem value="8:00">8:00</MenuItem>
-                  <MenuItem value="9:00">9:00</MenuItem>
-                  <MenuItem value="10:00">10:00</MenuItem>
-                  <MenuItem value="11:00">11:00</MenuItem>
-                  <MenuItem value="12:00">12:00</MenuItem>
-                  <MenuItem value="13:00">13:00</MenuItem>
-                  <MenuItem value="14:00">14:00</MenuItem>
-                  <MenuItem value="15:00">15:00</MenuItem>
-                  <MenuItem value="16:00">16:00</MenuItem>
-                  <MenuItem value="17:00">17:00</MenuItem>
-                  <MenuItem value="18:00">18:00</MenuItem>
-                  <MenuItem value="19:00">19:00</MenuItem>
-                  <MenuItem value="20:00">20:00</MenuItem>
-                  <MenuItem value="21:00">21:00</MenuItem>
-                  <MenuItem value="22:00">22:00</MenuItem>
-                  <MenuItem value="23:00">23:00</MenuItem>
-                </Select>
-              </FormControl>
-              <FormControl className={classes.formControl}>
-                <InputLabel id="friday_close">Friday Close</InputLabel>
-                <Select
-                  labelId="friday_close"
-                  id="friday_close"
-                  name="friday_close"
-                  value={friday_close}
-                  onChange={handleChange}
-                >
-                  <MenuItem value="0:00">0:00</MenuItem>
-                  <MenuItem value="1:00">1:00</MenuItem>
-                  <MenuItem value="2:00">2:00</MenuItem>
-                  <MenuItem value="3:00">3:00</MenuItem>
-                  <MenuItem value="4:00">4:00</MenuItem>
-                  <MenuItem value="5:00">5:00</MenuItem>
-                  <MenuItem value="6:00">6:00</MenuItem>
-                  <MenuItem value="7:00">7:00</MenuItem>
-                  <MenuItem value="8:00">8:00</MenuItem>
-                  <MenuItem value="9:00">9:00</MenuItem>
-                  <MenuItem value="10:00">10:00</MenuItem>
-                  <MenuItem value="11:00">11:00</MenuItem>
-                  <MenuItem value="12:00">12:00</MenuItem>
-                  <MenuItem value="13:00">13:00</MenuItem>
-                  <MenuItem value="14:00">14:00</MenuItem>
-                  <MenuItem value="15:00">15:00</MenuItem>
-                  <MenuItem value="16:00">16:00</MenuItem>
-                  <MenuItem value="17:00">17:00</MenuItem>
-                  <MenuItem value="18:00">18:00</MenuItem>
-                  <MenuItem value="19:00">19:00</MenuItem>
-                  <MenuItem value="20:00">20:00</MenuItem>
-                  <MenuItem value="21:00">21:00</MenuItem>
-                  <MenuItem value="22:00">22:00</MenuItem>
-                  <MenuItem value="23:00">23:00</MenuItem>
-                </Select>
-              </FormControl>
-              </Grid>
-              <Grid item xs={12} align="center">
-              <FormControl className={classes.formControl}>
-                <InputLabel id="saturday_open">Saturday Open</InputLabel>
-                <Select
-                  labelId="saturday_open"
-                  id="saturday_open"
-                  name="saturday_open"
-                  value={saturday_open}
-                  onChange={handleChange}
-                >
-                  <MenuItem value="0:00">0:00</MenuItem>
-                  <MenuItem value="1:00">1:00</MenuItem>
-                  <MenuItem value="2:00">2:00</MenuItem>
-                  <MenuItem value="3:00">3:00</MenuItem>
-                  <MenuItem value="4:00">4:00</MenuItem>
-                  <MenuItem value="5:00">5:00</MenuItem>
-                  <MenuItem value="6:00">6:00</MenuItem>
-                  <MenuItem value="7:00">7:00</MenuItem>
-                  <MenuItem value="8:00">8:00</MenuItem>
-                  <MenuItem value="9:00">9:00</MenuItem>
-                  <MenuItem value="10:00">10:00</MenuItem>
-                  <MenuItem value="11:00">11:00</MenuItem>
-                  <MenuItem value="12:00">12:00</MenuItem>
-                  <MenuItem value="13:00">13:00</MenuItem>
-                  <MenuItem value="14:00">14:00</MenuItem>
-                  <MenuItem value="15:00">15:00</MenuItem>
-                  <MenuItem value="16:00">16:00</MenuItem>
-                  <MenuItem value="17:00">17:00</MenuItem>
-                  <MenuItem value="18:00">18:00</MenuItem>
-                  <MenuItem value="19:00">19:00</MenuItem>
-                  <MenuItem value="20:00">20:00</MenuItem>
-                  <MenuItem value="21:00">21:00</MenuItem>
-                  <MenuItem value="22:00">22:00</MenuItem>
-                  <MenuItem value="23:00">23:00</MenuItem>
-                </Select>
-              </FormControl>
-              <FormControl className={classes.formControl}>
-                <InputLabel id="saturday_close">Saturday Close</InputLabel>
-                <Select
-                  labelId="saturday_close"
-                  id="saturday_close"
-                  name="saturday_close"
-                  value={saturday_close}
-                  onChange={handleChange}
-                >
-                  <MenuItem value="0:00">0:00</MenuItem>
-                  <MenuItem value="1:00">1:00</MenuItem>
-                  <MenuItem value="2:00">2:00</MenuItem>
-                  <MenuItem value="3:00">3:00</MenuItem>
-                  <MenuItem value="4:00">4:00</MenuItem>
-                  <MenuItem value="5:00">5:00</MenuItem>
-                  <MenuItem value="6:00">6:00</MenuItem>
-                  <MenuItem value="7:00">7:00</MenuItem>
-                  <MenuItem value="8:00">8:00</MenuItem>
-                  <MenuItem value="9:00">9:00</MenuItem>
-                  <MenuItem value="10:00">10:00</MenuItem>
-                  <MenuItem value="11:00">11:00</MenuItem>
-                  <MenuItem value="12:00">12:00</MenuItem>
-                  <MenuItem value="13:00">13:00</MenuItem>
-                  <MenuItem value="14:00">14:00</MenuItem>
-                  <MenuItem value="15:00">15:00</MenuItem>
-                  <MenuItem value="16:00">16:00</MenuItem>
-                  <MenuItem value="17:00">17:00</MenuItem>
-                  <MenuItem value="18:00">18:00</MenuItem>
-                  <MenuItem value="19:00">19:00</MenuItem>
-                  <MenuItem value="20:00">20:00</MenuItem>
-                  <MenuItem value="21:00">21:00</MenuItem>
-                  <MenuItem value="22:00">22:00</MenuItem>
-                  <MenuItem value="23:00">23:00</MenuItem>
-                </Select>
-              </FormControl>
-              </Grid>
-              <Grid item xs={12} align="center">
-              <FormControl className={classes.formControl}>
-                <InputLabel id="sunday_open">Sunday Open</InputLabel>
-                <Select
-                  labelId="sunday_open"
-                  id="sunday_open"
-                  name="sunday_open"
-                  value={sunday_open}
-                  onChange={handleChange}
-                >
-                  <MenuItem value="0:00">0:00</MenuItem>
-                  <MenuItem value="1:00">1:00</MenuItem>
-                  <MenuItem value="2:00">2:00</MenuItem>
-                  <MenuItem value="3:00">3:00</MenuItem>
-                  <MenuItem value="4:00">4:00</MenuItem>
-                  <MenuItem value="5:00">5:00</MenuItem>
-                  <MenuItem value="6:00">6:00</MenuItem>
-                  <MenuItem value="7:00">7:00</MenuItem>
-                  <MenuItem value="8:00">8:00</MenuItem>
-                  <MenuItem value="9:00">9:00</MenuItem>
-                  <MenuItem value="10:00">10:00</MenuItem>
-                  <MenuItem value="11:00">11:00</MenuItem>
-                  <MenuItem value="12:00">12:00</MenuItem>
-                  <MenuItem value="13:00">13:00</MenuItem>
-                  <MenuItem value="14:00">14:00</MenuItem>
-                  <MenuItem value="15:00">15:00</MenuItem>
-                  <MenuItem value="16:00">16:00</MenuItem>
-                  <MenuItem value="17:00">17:00</MenuItem>
-                  <MenuItem value="18:00">18:00</MenuItem>
-                  <MenuItem value="19:00">19:00</MenuItem>
-                  <MenuItem value="20:00">20:00</MenuItem>
-                  <MenuItem value="21:00">21:00</MenuItem>
-                  <MenuItem value="22:00">22:00</MenuItem>
-                  <MenuItem value="23:00">23:00</MenuItem>
-                </Select>
-              </FormControl>
-              <FormControl className={classes.formControl}>
-                <InputLabel id="sunday_close">Sunday Close</InputLabel>
-                <Select
-                  labelId="sunday_close"
-                  id="sunday_close"
-                  name="sunday_close"
-                  value={sunday_close}
-                  onChange={handleChange}
-                >
-                  <MenuItem value="0:00">0:00</MenuItem>
-                  <MenuItem value="1:00">1:00</MenuItem>
-                  <MenuItem value="2:00">2:00</MenuItem>
-                  <MenuItem value="3:00">3:00</MenuItem>
-                  <MenuItem value="4:00">4:00</MenuItem>
-                  <MenuItem value="5:00">5:00</MenuItem>
-                  <MenuItem value="6:00">6:00</MenuItem>
-                  <MenuItem value="7:00">7:00</MenuItem>
-                  <MenuItem value="8:00">8:00</MenuItem>
-                  <MenuItem value="9:00">9:00</MenuItem>
-                  <MenuItem value="10:00">10:00</MenuItem>
-                  <MenuItem value="11:00">11:00</MenuItem>
-                  <MenuItem value="12:00">12:00</MenuItem>
-                  <MenuItem value="13:00">13:00</MenuItem>
-                  <MenuItem value="14:00">14:00</MenuItem>
-                  <MenuItem value="15:00">15:00</MenuItem>
-                  <MenuItem value="16:00">16:00</MenuItem>
-                  <MenuItem value="17:00">17:00</MenuItem>
-                  <MenuItem value="18:00">18:00</MenuItem>
-                  <MenuItem value="19:00">19:00</MenuItem>
-                  <MenuItem value="20:00">20:00</MenuItem>
-                  <MenuItem value="21:00">21:00</MenuItem>
-                  <MenuItem value="22:00">22:00</MenuItem>
-                  <MenuItem value="23:00">23:00</MenuItem>
-                </Select>
-              </FormControl>
-              </Grid>
-              <Grid item xs={12} align="center">
-              <FormControl className={classes.formControl}>
-                <InputLabel id="demo-simple-select-label">Age</InputLabel>
-                <Select
-                  labelId="day"
-                  name="day"
-                  id="day"
-                  value={day}
-                  onChange={handleChange}
-                >
-                  <MenuItem value="Undecided">Undecided</MenuItem>
-                  { days }
-                </Select>
-              </FormControl>
-              </Grid>
-              <Grid item xs={12} align="center">
-                <Button variant="contained" color="secondary" type="submit" >Add Activity</Button>
-              </Grid>
-        </form>
-              </Grid>
-            </Container>
-          </Card>
+             </form>
+            </Card>
           </Grid>
-          
         </Grid>
       </Container>
     )
