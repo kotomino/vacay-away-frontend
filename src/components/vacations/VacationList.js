@@ -10,7 +10,10 @@ import Typography from '@material-ui/core/Typography';
 
 class VacationList extends Component {
 
-  handleDelete = vacationId => {
+  handleDelete = (vacationId, e) => {
+    e.cancelBubble = true;
+    if(e.stopPropagation) e.stopPropagation(); // prevents call to parent onClick to Vacation show route, only deletes vacation
+
     console.log(vacationId)
     console.log('this.props.activities', this.props.activities)
     /* Find array of activity ids to delete that have the vacation id as foreign key */ 
@@ -33,7 +36,7 @@ class VacationList extends Component {
 
   render() {
     
-    const vacations = this.props.vacations.map( (vacation, i) => <Vacation key={vacation.id} handleDelete={this.handleDelete} location={ vacation.location } start_date={ vacation.start_date } end_date={ vacation.end_date } budget={vacation.budget} vacation={vacation} />)
+    const vacations = this.props.vacations.map( (vacation, i) => <Vacation history={this.props.history} key={vacation.id} handleDelete={this.handleDelete} location={ vacation.location } start_date={ vacation.start_date } end_date={ vacation.end_date } budget={vacation.budget} vacation={vacation} />)
 
     return (
       <Container>
