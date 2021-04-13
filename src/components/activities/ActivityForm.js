@@ -69,10 +69,10 @@ function ActivityForm({ history, addActivity, vacations }) {
         break;
       case "notes":
         setNotes(e.target.value)
+        break;
       case "day":
         setDay(e.target.value)
         break;
-
       case "monday_open":
         setMondayOpen(e.target.value)
         break;

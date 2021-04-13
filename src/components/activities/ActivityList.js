@@ -30,7 +30,7 @@ class ActivityList extends Component {
           <Grid item xs={12}>
             <Typography variant="h5" color="textPrimary"><strong>Activities With Undecided Days </strong></Typography>
           </Grid>
-          <Grid container container wrap='nowrap' spacing={2} className="activitySlider">
+          <Grid container wrap='nowrap' spacing={2} className="activitySlider">
             { activities } 
             
           </Grid>
