@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   
 }));
 
-function ActivityForm({ history, addActivity, vacations }) {
+const ActivityForm = ({ history, addActivity, vacations }) => {
 
   const classes = useStyles();
 

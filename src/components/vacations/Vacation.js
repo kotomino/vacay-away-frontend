@@ -14,8 +14,7 @@ const useStyles = makeStyles({
   },
 });
 
-
-function Vacation({location, start_date, end_date, budget, vacation, handleDelete, history}) {
+const Vacation = ({location, start_date, end_date, budget, vacation, handleDelete, history}) => {
 
     const classes = useStyles();
 

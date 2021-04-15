@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function VacationForm({ history, addVacation }) {
+const VacationForm = ({ history, addVacation }) => {
   const classes = useStyles();
 
   const [location, setLocation] = useState('')

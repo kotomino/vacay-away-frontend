@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import VacationDay from './VacationDay';
 
 
-function VacationSchedule ({ numOfDays, activities, vacation, handleUpdate }) {
+const VacationSchedule =  ({ numOfDays, activities, vacation, handleUpdate }) => {
 
   /* Create daysArray with num of days in trip equaling indices and map over to create <VacationDay> containers */
   const daysArray = []

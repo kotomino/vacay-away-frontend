@@ -17,7 +17,7 @@ const useStyles = makeStyles({
   }
 });
 
-function ActivityWithDay({ activity, numOfDays, handleUpdate, day }) {
+const ActivityWithDay = ({ activity, numOfDays, handleUpdate, day }) => {
   console.log(activity)
   const classes = useStyles();
 

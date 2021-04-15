@@ -15,7 +15,7 @@ const useStyles = makeStyles({
   },
 });
 
-function VacationDay({ day, activities, vacation, numOfDays, handleUpdate }) {
+const VacationDay = ({ day, activities, vacation, numOfDays, handleUpdate }) => {
   
   const activitiesForDay = activities.filter(activity => activity.day === day && activity.vacation.id === vacation.id )
 

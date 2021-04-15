@@ -10,8 +10,7 @@ const useStyles = makeStyles({
   },
 });
 
-
-function VacationHeader({location, start_date, end_date, budget, totalCost }) {
+const VacationHeader = ({location, start_date, end_date, budget, totalCost }) => {
 
     const classes = useStyles();
 

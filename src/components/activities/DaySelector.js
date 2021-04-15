@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function DaySelector({ numOfDays, handleUpdate, activity, day }) {
+const DaySelector = ({ numOfDays, handleUpdate, activity, day }) => {
 
   const classes = useStyles();
 

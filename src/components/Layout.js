@@ -8,7 +8,7 @@ const useStyles = makeStyles({
   }
 })
 
-export default function Layout({ children }) {
+const Layout = ({ children }) => {
 
   const classes = useStyles();
   
@@ -21,3 +21,5 @@ export default function Layout({ children }) {
     </div>
   )
 }
+
+export default Layout

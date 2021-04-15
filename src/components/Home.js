@@ -3,8 +3,7 @@ import "../stylesheets/main.css";
 import Grid from '@material-ui/core/Grid';
 import { Container, Typography } from '@material-ui/core';
 
-
-function Home() {
+const Home = () => {
 
   return (
     <Container>
