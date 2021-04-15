@@ -47,10 +47,10 @@ class VacationShow extends Component {
       <Container>
         <Grid container spacing={3}>
           <Grid item xs={12}>
-            <VacationHeader key={vacation.id} location={ vacation.location } start_date={ vacation.start_date } end_date={ vacation.end_date } budget={vacation.budget} vacation={vacation} totalCost={totalCost} />
+            <VacationHeader key={vacation.id} location={ vacation.location } start_date={ vacation.start_date } end_date={ vacation.end_date } budget={vacation.budget} totalCost={totalCost} />
           </Grid>
           <Grid item xs={12}>
-            <VacationSchedule numOfDays={numOfDays} location={ vacation.location } start_date={ vacation.start_date } end_date={ vacation.end_date } budget={vacation.budget} vacation={vacation} activities={this.props.activities} handleUpdate={this.handleUpdate} />
+            <VacationSchedule numOfDays={numOfDays} vacation={vacation} activities={this.props.activities} handleUpdate={this.handleUpdate} />
           </Grid>
           <Grid item xs={12}>
             <ActivityList key={vacation.id} numOfDays={numOfDays} vacation={vacation} handleUpdate={this.handleUpdate} /><br/>

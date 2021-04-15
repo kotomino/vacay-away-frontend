@@ -16,7 +16,7 @@ class ActivityList extends Component {
   render() {
     const relevantActivities = this.props.activities.filter(activity => activity.vacation.id === this.props.vacation.id && activity.day === "Undecided")
    
-    const activities = relevantActivities.map( (activity, i) => <Activity key={i} handleUpdate={this.props.handleUpdate} numOfDays={this.props.numOfDays} activity={activity} handleDelete={this.handleDelete} name={activity.name} address={activity.address} cost={activity.cost} notes={activity.notes} 
+    const activities = relevantActivities.map( (activity, i) => <Activity key={i} handleUpdate={this.props.handleUpdate} numOfDays={this.props.numOfDays} activity={activity} handleDelete={this.handleDelete} name={activity.name} address={activity.address} cost={activity.cost}
     mondayOpen={activity.monday_open} mondayClose={activity.monday_close} 
     tuesdayOpen={activity.tuesday_open} tuesdayClose={activity.tuesday_close} 
     wednesdayOpen={activity.wednesday_open} wednesdayClose={activity.wednesday_close}  
