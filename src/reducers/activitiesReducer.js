@@ -36,13 +36,6 @@ const activitiesReducer = (state = initialState, action) => {
         ...state,
         activities: newActivities
       }
-    case "DELETE_ACTIVITIES":
-      console.log('DELETE_ACTIVITIES reducer', action)
-      const remainingActivities = state.activities.filter(activity => activity.vacation.id !== action.id) // activity's vacation id (foregin key) does not equal the deleted vacation's id.
-      return {
-        ...state,
-        activities: remainingActivities
-      }
     default:
       return state;
   }
