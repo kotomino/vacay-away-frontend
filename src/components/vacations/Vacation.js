@@ -14,7 +14,7 @@ const useStyles = makeStyles({
   },
 });
 
-const Vacation = ({location, start_date, end_date, budget, vacation, handleDelete, history}) => {
+const Vacation = ({location, start_date, end_date, vacation, handleDelete, history}) => {
 
     const classes = useStyles();
 
@@ -52,8 +52,6 @@ const Vacation = ({location, start_date, end_date, budget, vacation, handleDelet
                 </CardContent>      
           </Card>
           </CardActionArea>
-           
-        {/* </Link> */}
       </Grid>
     )
   }
