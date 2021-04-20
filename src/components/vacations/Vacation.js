@@ -44,14 +44,14 @@ const Vacation = ({location, start_date, end_date, vacation, handleDelete, histo
                 <Typography variant="h4" color="primary" align="center">{ location }</Typography>
               }
             />
-                <CardContent>
-                  <Typography color="primary" align="center">
-                    { numOfDays } Days &emsp;&emsp; { tripDates }
-                  </Typography>
-            
-                </CardContent>      
+            <CardContent>
+              <Typography color="primary" align="center">
+                { numOfDays } Days &emsp;&emsp; { tripDates }
+              </Typography>
+        
+            </CardContent>      
           </Card>
-          </CardActionArea>
+        </CardActionArea>
       </Grid>
     )
   }
