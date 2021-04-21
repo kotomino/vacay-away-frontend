@@ -3,7 +3,7 @@
 Vacay Away is a React JS web app that allows users to plan each of their vacation days with activities that display their hours of operation, addresses, and estimated costs. The app allows for flexible, dynamic, and visual engagement and automatically calculates the remaining budget from the original amount the user indicates. 
 
 
-You can find the corresponding backend project at URL(https://github.com/kotomino/flappy-bernie-backend)
+You can find the corresponding backend project at URL(https://github.com/kotomino/vacay-away-backend)
 
 ### Preview
 
