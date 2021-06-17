@@ -10,11 +10,12 @@ const useStyles = makeStyles({
     backgroundColor: fade("#22293D", 0.7),
     
   },
-  flexChild: {
+  flexchild: {
     width: 60,
     height: 70,
-    margin: 10
-  }
+    margin: 10,
+    
+  },
 });
 
 const ActivityWithDay = ({ activity, numOfDays, handleUpdate, day }) => {
@@ -26,15 +27,15 @@ const ActivityWithDay = ({ activity, numOfDays, handleUpdate, day }) => {
     <Grid item xs={12}>
       <Card container className={[classes.activity, "flex-container"].join(" ")} >
         
-          <div className={[classes.flexChild, "flex-child"].join(" ")} >
-          <Typography variant="h5" color="textSecondary">
+          <div className={[classes.flexchild, "flex-child"].join(" ")} >
+          <Typography noWrap variant="h5" color="textSecondary">
             { activity.name }
           </Typography>
           <Typography variant="h6" color="textSecondary">
             ${ activity.cost }
           </Typography>
           </div>
-          <div className={[classes.flexChild, "flex-child"].join(" ")}>
+          <div className={[classes.flexchild, "flex-child"].join(" ")}>
           <DaySelector numOfDays={numOfDays} activity={activity} handleUpdate={handleUpdate} day={day} />
           </div>
         
