@@ -18,13 +18,37 @@ const useStyles = makeStyles({
   },
 });
 
-const ActivityWithDay = ({ activity, numOfDays, handleUpdate, day }) => {
+const ActivityWithDay = ({ activity, numOfDays, handleUpdate, day, className, draggable }) => {
   console.log(activity)
   const classes = useStyles();
 
+// drag and drop
+
+const dragStart = e => {
+  const target = e.target;
+
+  e.dataTransfer.setData('activity_id', target.id);
+
+  setTimeout(() => {
+    target.style.display = "none";
+  }, 0);
+}
+
+const dragOver = e => {
+  e.stopPropagation();
+}
+
 
   return (
-    <Grid item xs={12}>
+    <Grid 
+      item 
+      xs={12}
+      id={activity.id}
+      draggable={draggable}
+      onDragStart={dragStart}
+      onDragOver={dragOver}
+      className={className}
+      >
       <Card container className={[classes.activity, "flex-container"].join(" ")} >
         
           <div className={[classes.flexchild, "flex-child"].join(" ")} >

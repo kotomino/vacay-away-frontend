@@ -15,20 +15,45 @@ const useStyles = makeStyles({
   },
 });
 
-const VacationDay = ({ day, activities, vacation, numOfDays, handleUpdate }) => {
+const VacationDay = ({ day, activities, vacation, numOfDays, handleUpdate, className }) => {
   
   const activitiesForDay = activities.filter(activity => activity.day === day && activity.vacation.id === vacation.id )
 
-  const displayActivities = activitiesForDay.map(activity => <ActivityWithDay day={ day } numOfDays={numOfDays} activity={activity} vacation={vacation} handleUpdate={handleUpdate} />);
+  const displayActivities = activitiesForDay.map(activity => <ActivityWithDay day={day} numOfDays={numOfDays} activity={activity} vacation={vacation} handleUpdate={handleUpdate} className="activity" draggable="true" />);
 
   const classes = useStyles();
+
+  // drag and drop
+
+  const drop = e => {
+    e.preventDefault();
+    const activity_id = e.dataTransfer.getData('activity_id');
+
+    const activity = document.getElementById(activity_id);
+    activity.style.display = 'block';
+
+    e.target.appendChild(activity);
+  }
+
+  const dragOver = e => {
+    e.preventDefault();
+  }
   
     return (
       <Grid item spacing={1} >
         <Typography variant="h4" color="textPrimary"><center><strong>{ day }</strong></center></Typography>
         <Card container className={[classes.dayPlanner, "flex-section"].join(" ")} elevation={5} >
-          <CardContent className={"flex-col-scroll"}>
-            <Grid container spacing={1} >
+          <CardContent 
+          className={"flex-col-scroll"}
+          id={day}
+          onDrop={drop}
+          onDragOver={dragOver}
+          className={className}>
+            <Grid 
+              container 
+              spacing={1} 
+              
+              >
             { displayActivities }
             </Grid>
           </CardContent>

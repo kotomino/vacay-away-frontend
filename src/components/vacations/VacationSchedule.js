@@ -12,7 +12,7 @@ const VacationSchedule =  ({ numOfDays, activities, vacation, handleUpdate }) =>
       daysArray.push(`Day ${i + 1}`);
   }
   
-  const days = daysArray.map((day, i) => <VacationDay key={i}  numOfDays={numOfDays} day={day} activities={activities} vacation={vacation} handleUpdate={handleUpdate} />)
+  const days = daysArray.map((day, i) => <VacationDay key={i} numOfDays={numOfDays} day={day} activities={activities} vacation={vacation} handleUpdate={handleUpdate} className="board" />)
 
   return ( 
     <Grid container wrap='nowrap' spacing={2} className="vacationSlider" >
